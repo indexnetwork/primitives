@@ -214,7 +214,7 @@ const LAYERS = [
       },
       {
         name: "Offer / Bid",
-        pillars: ["Money", "Language"],
+        pillars: ["Value", "Language"],
         formationRate: "~3%",
         tamUnlocked: "$20B+",
         maturity: "Emerging",
@@ -276,7 +276,7 @@ const LAYERS = [
       },
       {
         name: "Transaction",
-        pillars: ["Money"],
+        pillars: ["Value"],
         formationRate: "~2%",
         tamUnlocked: "$200B+",
         maturity: "Growing",
@@ -337,7 +337,7 @@ const LAYERS = [
       },
       {
         name: "Smart Contract",
-        pillars: ["Money", "Coordination"],
+        pillars: ["Value", "Coordination"],
         formationRate: "~2%",
         tamUnlocked: "$1T+",
         maturity: "Growing",
@@ -495,7 +495,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Token",
-        pillars: ["Money"],
+        pillars: ["Value"],
         formationRate: "~5%",
         tamUnlocked: "$400T+",
         maturity: "Growing",
@@ -519,7 +519,7 @@ const LAYERS = [
       },
       {
         name: "Stream",
-        pillars: ["Money", "Coordination"],
+        pillars: ["Value", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$30B+",
         maturity: "Emerging",
@@ -537,7 +537,7 @@ const LAYERS = [
       },
       {
         name: "Escrow",
-        pillars: ["Money", "Coordination"],
+        pillars: ["Value", "Coordination"],
         formationRate: "~2%",
         tamUnlocked: "$15B+",
         maturity: "Emerging",
@@ -559,7 +559,7 @@ const LAYERS = [
       },
       {
         name: "DeFi (Liquidity)",
-        pillars: ["Money", "Coordination"],
+        pillars: ["Value", "Coordination"],
         formationRate: "~1%",
         tamUnlocked: "$100B+",
         maturity: "Growing",
@@ -582,7 +582,7 @@ const LAYERS = [
       },
       {
         name: "Risk",
-        pillars: ["Money", "Language"],
+        pillars: ["Value", "Language"],
         formationRate: "<1%",
         tamUnlocked: "$100B+",
         maturity: "Experimental",
@@ -688,7 +688,7 @@ const LAYERS = [
       },
       {
         name: "Prediction Market",
-        pillars: ["Money", "Language"],
+        pillars: ["Value", "Language"],
         formationRate: "~2%",
         tamUnlocked: "$30B+",
         maturity: "Growing",
@@ -730,7 +730,7 @@ const LAYERS = [
       },
       {
         name: "Task",
-        pillars: ["Language", "Money"],
+        pillars: ["Language", "Value"],
         formationRate: "<1%",
         tamUnlocked: "$100B+",
         maturity: "Experimental",

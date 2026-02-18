@@ -67,7 +67,7 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 @media(min-width:768px){.prim-pillars{display:flex}}
 .pill{font-size:10px;padding:.125rem .5rem;border-radius:9999px;border:1px solid}
 .pill-Language{color:#60a5fa;border-color:rgba(96,165,250,.3)}
-.pill-Money{color:#4ade80;border-color:rgba(74,222,128,.3)}
+.pill-Value{color:#4ade80;border-color:rgba(74,222,128,.3)}
 .pill-Coordination{color:#c084fc;border-color:rgba(192,132,252,.3)}
 .prim-rate,.prim-tam{font-size:.75rem;color:#9ca3af;text-align:right;display:none}
 @media(min-width:640px){.prim-rate{display:block;width:4rem}.prim-tam{display:block;width:5rem}}
@@ -150,7 +150,7 @@ function render(){
   const totalVisible=filtered.reduce((s,lg)=>s+lg.primitives.length,0);
   const totalAll=LAYERS.reduce((s,lg)=>s+lg.primitives.length,0);
 
-  const pillars=["Language","Money","Coordination"];
+  const pillars=["Language","Value","Coordination"];
   const layerOpts=["Foundation","Context","Intent","Interaction","Trust","Value","Coordination","Agents"];
   const matOpts=["Theoretical","Experimental","Emerging","Growing","Established"];
 
