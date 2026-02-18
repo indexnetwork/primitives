@@ -1,4 +1,4 @@
-# Primitive Map
+# Primitives
 
 Personal agents, messaging apps, feeds, CRMs, and calendars are historical artifacts of product boundaries — not fundamental coordination primitives. If natural language is the new API, primitives are bounded by human language, not technics. When language becomes the boundary, meaning replaces UI as the organizing principle.
 
@@ -6,7 +6,7 @@ This map tracks the human coordination primitives that surface when meaning, not
 
 37 primitives across 8 layers — Foundation, Context, Intent, Interaction, Trust, Value, Coordination, and Agents — each cataloged with formation rate, total addressable market, maturity stage, key instantiations, and composition relationships.
 
-**[View the map](https://indexnetwork.github.io/primitives-map/)**
+**[View the map](https://indexnetwork.github.io/primitives/)**
 
 ## Structure
 
