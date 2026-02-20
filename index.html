@@ -103,8 +103,52 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 .tag .approach{color:#6b7280}
 .tag-outline{font-size:.75rem;padding:.125rem .5rem;border-radius:.25rem;border:1px solid rgba(255,255,255,.1);color:#9ca3af}
 
+/* Lenses */
+.lenses{margin-top:3rem;border-top:1px solid rgba(255,255,255,.1);padding-top:2rem}
+.lens{margin-bottom:2.5rem}
+.lens h2{font-size:1.125rem;font-weight:700;margin-bottom:1rem}
+
+/* Relevancy ↔ Reputation ↔ Trust flow */
+.rrt-flow{display:flex;align-items:stretch;gap:0 1.5rem;margin-top:1rem;flex-wrap:wrap}
+@media(min-width:520px){.rrt-flow{flex-wrap:nowrap}}
+.rrt-node{flex:1;min-width:8rem;padding:1rem;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);position:relative}
+.rrt-node:not(:last-child)::after{content:'→';position:absolute;right:-.6rem;top:50%;transform:translateY(-50%);font-size:.75rem;color:rgba(255,255,255,.3);z-index:1}
+@media(max-width:519px){.rrt-flow{gap:1rem 0}.rrt-node:not(:last-child)::after{content:'↓';right:auto;left:50%;top:auto;bottom:-.55rem;transform:translate(-50%,100%)}}
+.rrt-node:nth-child(1){border-left:3px solid #60a5fa}
+.rrt-node:nth-child(2){border-left:3px solid #c084fc}
+.rrt-node:nth-child(3){border-left:3px solid #4ade80}
+.rrt-node-title{font-size:.875rem;font-weight:600;margin-bottom:.35rem}
+.rrt-node-question{font-size:.75rem;color:#9ca3af;line-height:1.5;font-style:italic}
+
+/* Relevancy × Appropriateness 2×2 matrix */
+.ra-matrix{display:grid;grid-template-columns:auto 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:0;border:1px solid rgba(255,255,255,.1);min-width:28rem}
+.ra-axis{padding:.5rem .75rem;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;border:1px solid rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center}
+.ra-axis-y{writing-mode:vertical-rl;transform:rotate(180deg);text-orientation:mixed}
+.ra-cell{padding:1rem;border:1px solid rgba(255,255,255,.06);font-size:.8125rem}
+.ra-cell-title{font-weight:600;font-size:.75rem;margin-bottom:.5rem;text-transform:uppercase;letter-spacing:.04em}
+.ra-cell-desc{color:#9ca3af;line-height:1.6;margin-bottom:.5rem}
+.ra-cell-example{font-size:.75rem;color:#6b7280;font-style:italic;margin-bottom:.35rem}
+.ra-cell-scenario{font-size:.75rem;color:#d1d5db}
+.ra-cell.ideal{background:rgba(74,222,128,.06);border-color:rgba(74,222,128,.2)}
+.ra-cell.coercive{background:rgba(251,191,36,.06);border-color:rgba(251,191,36,.2)}
+.ra-cell.benign{background:rgba(96,165,250,.04);border-color:rgba(96,165,250,.15)}
+.ra-cell.collapse{background:rgba(239,68,68,.06);border-color:rgba(239,68,68,.2)}
+.ra-wrap{overflow-x:auto;margin-top:1rem;-webkit-overflow-scrolling:touch}
+
+/* Market Relationships */
+.mr-intro{font-size:.875rem;color:#9ca3af;line-height:1.6;margin-bottom:1rem}
+.mr-table-wrap{overflow-x:auto;margin-top:1rem;-webkit-overflow-scrolling:touch}
+.mr-table{width:100%;border-collapse:collapse;font-size:.8125rem;min-width:32rem}
+.mr-table th,.mr-table td{border:1px solid rgba(255,255,255,.08);padding:.75rem 1rem;text-align:left}
+.mr-table th{font-size:.7rem;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;font-weight:500;background:rgba(255,255,255,.02)}
+.mr-table td{color:#d1d5db}
+.mr-table tr:hover td{background:rgba(255,255,255,.02)}
+.mr-rel{font-weight:600;color:#fff;white-space:nowrap}
+.mr-market{color:#9ca3af}
+.mr-features{color:#9ca3af;line-height:1.5}
+
 /* Footer */
-.footer{text-align:center;padding:1.5rem 0;font-size:.75rem;color:#4b5563}
+.footer{text-align:center;padding:1rem 0;margin-bottom:1rem;font-size:.75rem;color:#4b5563}
 
 /* GitHub link */
 .intro-header{display:flex;align-items:center;gap:.75rem}
@@ -258,7 +302,107 @@ function render(){
     html+=`<div style="text-align:center;padding:3rem 0;color:#6b7280;font-size:.875rem">No primitives match the current filters.</div>`;
   }
 
-  html+=`<div class="footer">Showing ${totalVisible} of ${totalAll} primitives</div>`;
+  html+=`<div class="footer">Showing ${totalVisible} of ${totalAll} primitives</div>
+
+  <div class="lenses">
+    <div class="lens">
+      <h2>Relevancy ↔ Reputation ↔ Trust transformation</h2>
+      <div class="rrt-flow">
+        <div class="rrt-node">
+          <div class="rrt-node-title">Relevancy</div>
+          <div class="rrt-node-question">"Are you useful right now in this context?"</div>
+          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Present</div>
+        </div>
+        <div class="rrt-node">
+          <div class="rrt-node-title">Reputation</div>
+          <div class="rrt-node-question">"Have you been useful repeatedly in similar contexts?"</div>
+          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Past</div>
+        </div>
+        <div class="rrt-node">
+          <div class="rrt-node-title">Trust</div>
+          <div class="rrt-node-question">"Do I believe you'll continue to be useful?"</div>
+          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Future</div>
+        </div>
+      </div>
+    </div>
+    <div class="lens">
+      <h2>Relevancy × Appropriateness matrix</h2>
+      <div class="ra-wrap"><div class="ra-matrix">
+        <div></div>
+        <div class="ra-axis">Irrelevant</div>
+        <div class="ra-axis">Relevant</div>
+        <div class="ra-axis ra-axis-y">Appropriate</div>
+        <div class="ra-cell benign">
+          <div class="ra-cell-title">Benign noise</div>
+          <div class="ra-cell-desc">Harmless but contextually meaningless.</div>
+          <div class="ra-cell-example">"It doesn't help right now, but at least it doesn't compromise my privacy."</div>
+          <div class="ra-cell-scenario"><strong>Job interview</strong> — complimenting someone's <em>coffee mug</em>.</div>
+        </div>
+        <div class="ra-cell ideal">
+          <div class="ra-cell-title">Ideal</div>
+          <div class="ra-cell-desc">Meaningful <em>and</em> preserves autonomy.</div>
+          <div class="ra-cell-example">"This insight is useful, and I can act on it without giving up control."</div>
+          <div class="ra-cell-scenario"><strong>Job interview</strong> — discussing <em>how much I earn</em>.</div>
+        </div>
+        <div class="ra-axis ra-axis-y">Inappropriate</div>
+        <div class="ra-cell collapse">
+          <div class="ra-cell-title">Context collapse</div>
+          <div class="ra-cell-desc">Neither useful nor respectful of boundaries.</div>
+          <div class="ra-cell-example">"Off-topic <em>and</em> intrusive—the worst kind of interaction."</div>
+          <div class="ra-cell-scenario"><strong>Casual dinner</strong> — asking <em>how much I earn</em>. Spam?</div>
+        </div>
+        <div class="ra-cell coercive">
+          <div class="ra-cell-title">Coercive relevance</div>
+          <div class="ra-cell-desc">Helpful but extracts too much data or control.</div>
+          <div class="ra-cell-example">"Spot-on suggestion, but requires sharing private info I'd rather not."</div>
+          <div class="ra-cell-scenario"><strong>Dating</strong> — asking <em>how much I earn</em>.</div>
+        </div>
+      </div></div>
+    </div>
+    <div class="lens">
+      <h2>Market Relationships</h2>
+      <p class="mr-intro">This triad enables convergence of existing markets and the creation of new ones.</p>
+      <div class="mr-table-wrap">
+        <table class="mr-table">
+          <thead>
+            <tr><th>Relationship</th><th>Market</th><th>Key Features</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mr-rel">intent ↔ intents</td>
+              <td class="mr-market">Social, Agent-discovery</td>
+              <td class="mr-features">Decentralized social & agentic social</td>
+            </tr>
+            <tr>
+              <td class="mr-rel">intent ↔ agents</td>
+              <td class="mr-market">Consumer AI, Personalization Market</td>
+              <td class="mr-features">Memory, context-aware copilots</td>
+            </tr>
+            <tr>
+              <td class="mr-rel">intent ↔ value</td>
+              <td class="mr-market">Advertising / Reputation Systems</td>
+              <td class="mr-features">Intents become signals for demand, replacing advertising with direct economic coordination.</td>
+            </tr>
+            <tr>
+              <td class="mr-rel">value ↔ agents</td>
+              <td class="mr-market">Decentralized AI</td>
+              <td class="mr-features">Agents themselves act as economic actors, staking resources and earning returns on useful contributions.</td>
+            </tr>
+            <tr>
+              <td class="mr-rel">agg(intent) ↔ value</td>
+              <td class="mr-market">Info-Finance / Prediction Infrastructure</td>
+              <td class="mr-features">Aggregated intent data priced like assets (Google Trends × Market Cap)</td>
+            </tr>
+            <tr>
+              <td class="mr-rel">intents ↔ agg(intents)</td>
+              <td class="mr-market">Collective Intelligence</td>
+              <td class="mr-features">Demand discovery, wisdom-of-crowds intent pools</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>`;
   app.innerHTML=html;
 
   // Bind events
