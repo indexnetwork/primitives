@@ -164,6 +164,24 @@ const LAYERS = [
         ],
         composesWith: ["Consent", "Preference", "Opportunity", "Perception"],
       },
+      {
+        name: "Taste",
+        pillars: ["Language"],
+        formationRate: "<1%",
+        tamUnlocked: "$50B+",
+        maturity: "Experimental",
+        definition: "Curated aesthetic sensibility as a signal",
+        legacyEquivalent:
+          "Playlists, mood boards, wishlists, taste profiles, editorial picks",
+        instantiations: [
+          { name: "Are.na" },
+          { name: "Zora" },
+          { name: "Sound.xyz" },
+          { name: "Mirror.xyz" },
+          { name: "Index", approach: "taste graph" },
+        ],
+        composesWith: ["Preference", "Memory", "Endorsement", "Perception", "Knowledge"],
+      },
     ],
   },
   {
@@ -797,7 +815,7 @@ const LAYERS = [
 ];
 
 const SUMMARY = {
-  totalPrimitives: 37,
+  totalPrimitives: 38,
   totalLayers: 8,
   avgFormationRate: "~1.5%",
   totalTAM: "~$2.6T+",

@@ -4,7 +4,7 @@ Personal agents, messaging apps, feeds, CRMs, and calendars are historical artif
 
 This map tracks the human coordination primitives that surface when meaning, not software, organizes coordination: shared goals, common problems, intent, agreement, trust, and the broader elements of information exchange and social behavior.
 
-37 primitives across 8 layers — Foundation, Context, Intent, Interaction, Trust, Value, Coordination, and Agents — each cataloged with formation rate, total addressable market, maturity stage, key instantiations, and composition relationships.
+38 primitives across 8 layers — Foundation, Context, Intent, Interaction, Trust, Value, Coordination, and Agents — each cataloged with formation rate, total addressable market, maturity stage, key instantiations, and composition relationships.
 
 **[View the map](https://indexnetwork.github.io/primitives/)**
 
