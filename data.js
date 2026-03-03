@@ -182,6 +182,24 @@ const LAYERS = [
         ],
         composesWith: ["Preference", "Memory", "Endorsement", "Perception", "Knowledge"],
       },
+      {
+        name: "Skill",
+        pillars: ["Language"],
+        formationRate: "<1%",
+        tamUnlocked: "$20B+",
+        maturity: "Experimental",
+        definition: "Verifiable capability or competency of an individual or agent",
+        legacyEquivalent:
+          "Resumes, skill assessments, certifications, LinkedIn skills, portfolios",
+        instantiations: [
+          { name: "Braintrust" },
+          { name: "Layer3" },
+          { name: "Dework" },
+          { name: "DegenScore" },
+          { name: "Index", approach: "skill graph" },
+        ],
+        composesWith: ["Credential / Claim", "Reputation", "Task", "Agent", "Knowledge"],
+      },
     ],
   },
   {
@@ -815,7 +833,7 @@ const LAYERS = [
 ];
 
 const SUMMARY = {
-  totalPrimitives: 38,
+  totalPrimitives: 39,
   totalLayers: 8,
   avgFormationRate: "~1.5%",
   totalTAM: "~$2.6T+",
