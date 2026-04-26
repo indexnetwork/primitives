@@ -377,6 +377,30 @@ const LAYERS = [
         ],
       },
       {
+        name: "Negotiation",
+        pillars: ["Language", "Coordination"],
+        formationRate: "<1%",
+        tamUnlocked: "$100B+",
+        maturity: "Experimental",
+        definition:
+          "Structured multi-party protocol for reaching agreement through iterative exchange",
+        legacyEquivalent:
+          "Contract negotiation, collective bargaining, RFP process, price discovery",
+        instantiations: [
+          { name: "Pact", approach: "Basis" },
+          { name: "Autonolas" },
+          { name: "Fetch.ai" },
+          { name: "Anoma" },
+        ],
+        composesWith: [
+          "Offer / Bid",
+          "Agreement",
+          "Conversation",
+          "Intent",
+          "Commitment",
+        ],
+      },
+      {
         name: "Agreement",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
@@ -815,7 +839,7 @@ const LAYERS = [
 ];
 
 const SUMMARY = {
-  totalPrimitives: 38,
+  totalPrimitives: 39,
   totalLayers: 8,
   avgFormationRate: "~1.5%",
   totalTAM: "~$2.6T+",
