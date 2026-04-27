@@ -293,6 +293,22 @@ const LAYERS = [
         composesWith: ["Intent", "Consent", "Transaction", "Decision"],
       },
       {
+        name: "Gossip",
+        pillars: ["Language", "Coordination"],
+        formationRate: "<1%",
+        tamUnlocked: "$5B+",
+        maturity: "Experimental",
+        definition: "Informal peer-to-peer signal propagation through social graphs",
+        legacyEquivalent: "Word of mouth, rumors, grapevine, informal networks",
+        instantiations: [
+          { name: "libp2p", approach: "gossipsub" },
+          { name: "Waku" },
+          { name: "Nostr" },
+          { name: "Farcaster" },
+        ],
+        composesWith: ["Reputation", "Perception", "Conversation", "Knowledge"],
+      },
+      {
         name: "Transaction",
         pillars: ["Value"],
         formationRate: "~2%",
@@ -839,7 +855,7 @@ const LAYERS = [
 ];
 
 const SUMMARY = {
-  totalPrimitives: 39,
+  totalPrimitives: 40,
   totalLayers: 8,
   avgFormationRate: "~1.5%",
   totalTAM: "~$2.6T+",
