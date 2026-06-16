@@ -175,6 +175,7 @@ const LAYERS = [
           "Playlists, mood boards, wishlists, taste profiles, editorial picks",
         instantiations: [
           { name: "Are.na" },
+          { name: "TasteLabs" },
           { name: "Zora" },
           { name: "Sound.xyz" },
           { name: "Mirror.xyz" },
