@@ -401,6 +401,30 @@ const LAYERS = [
         ],
       },
       {
+        name: "Question",
+        pillars: ["Language"],
+        formationRate: "<1%",
+        tamUnlocked: "$30B+",
+        maturity: "Emerging",
+        definition: "Structured request for information or clarification",
+        legacyEquivalent:
+          "Forms, surveys, FAQ systems, search queries, interviews, help tickets",
+        instantiations: [
+          { name: "Index" },
+          { name: "Cursor", approach: "AI question" },
+          { name: "Claude Code" },
+          { name: "Poe" },
+          { name: "Perplexity" },
+        ],
+        composesWith: [
+          "Intent",
+          "Conversation",
+          "Memory",
+          "Knowledge",
+          "Decision",
+        ],
+      },
+      {
         name: "Agreement",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
@@ -839,7 +863,7 @@ const LAYERS = [
 ];
 
 const SUMMARY = {
-  totalPrimitives: 39,
+  totalPrimitives: 40,
   totalLayers: 8,
   avgFormationRate: "~1.5%",
   totalTAM: "~$2.6T+",
