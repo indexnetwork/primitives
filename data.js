@@ -305,6 +305,7 @@ const LAYERS = [
           { name: "Waku" },
           { name: "Nostr" },
           { name: "Farcaster" },
+          { name: "Hivemind" },
         ],
         composesWith: ["Reputation", "Perception", "Conversation", "Knowledge"],
       },
