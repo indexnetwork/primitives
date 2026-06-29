@@ -874,7 +874,7 @@ const LAYERS = [
 ];
 
 const SUMMARY = {
-  totalPrimitives: 40,
+  totalPrimitives: LAYERS.reduce((total, layer) => total + layer.primitives.length, 0),
   totalLayers: 8,
   avgFormationRate: "~1.5%",
   totalTAM: "~$2.6T+",
