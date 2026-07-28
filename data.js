@@ -362,6 +362,7 @@ const LAYERS = [
           { name: "Snapshot" },
           { name: "Tally" },
           { name: "Index" },
+          { name: "Primitive" },
           { name: "Boardroom" },
         ],
         composesWith: ["Vote", "Proposal", "Commitment", "Memory"],
