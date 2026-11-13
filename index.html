@@ -94,7 +94,7 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 
 /* Expanded detail */
 .prim-detail{overflow:hidden;max-height:0;transition:max-height .25s ease}
-.prim-detail.open{max-height:600px}
+.prim-detail.open{max-height:1400px}
 .prim-detail-inner{padding:.25rem 1rem 1rem;font-size:.875rem}
 .prim-detail-inner > *+*{margin-top:.75rem}
 .prim-def{color:#d1d5db}
@@ -156,6 +156,30 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 .mr-market{color:#9ca3af}
 .mr-features{color:#9ca3af;line-height:1.5}
 
+/* Thesis + estimate notice */
+.intro .thesis{font-size:1rem;color:#fff;line-height:1.7;margin-bottom:1rem}
+.notice{font-size:.75rem;color:#6b7280;line-height:1.6;margin:-1rem 0 2rem}
+.notice a,.lens a{color:#9ca3af}
+.notice a:hover,.lens a:hover{color:#d1d5db}
+
+/* Annotations in detail panel */
+.kind-tag{font-size:10px;padding:.125rem .5rem;border-radius:9999px;border:1px dashed rgba(255,255,255,.25);color:#9ca3af;white-space:nowrap}
+.prim-note{font-size:.75rem;color:#9ca3af;line-height:1.6;border-left:2px solid rgba(255,255,255,.12);padding-left:.75rem}
+.prim-note .label{color:#6b7280}
+.qual{font-size:.7rem;color:#6b7280;display:block;margin-top:.15rem}
+
+/* Lens + methodology text */
+.lens-intro{font-size:.875rem;color:#9ca3af;line-height:1.7;margin-bottom:1rem}
+.method h3{font-size:.875rem;font-weight:700;margin:1.75rem 0 .5rem}
+.method p,.method li{font-size:.8125rem;color:#9ca3af;line-height:1.7}
+.method ul{padding-left:1.25rem}
+.method li+li{margin-top:.35rem}
+.method p+ul,.method ul+p,.method p+p{margin-top:.6rem}
+.method strong{color:#d1d5db;font-weight:500}
+.def-list{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1rem;font-size:.8125rem;line-height:1.6}
+.def-list dt{font-weight:500}
+.def-list dd{color:#9ca3af}
+
 /* Footer */
 .footer{text-align:center;padding:1rem 0;margin-bottom:1rem;font-size:.75rem;color:#4b5563}
 
@@ -208,14 +232,16 @@ function render(){
 
   const totalVisible=filtered.reduce((s,lg)=>s+lg.primitives.length,0);
   const totalAll=LAYERS.reduce((s,lg)=>s+lg.primitives.length,0);
+  const projectsTracked=new Set(LAYERS.flatMap(lg=>lg.primitives.flatMap(p=>p.instantiations.map(i=>i.name)))).size;
+  const lastRevised=new Date(META.lastRevised+'T00:00:00Z').toLocaleDateString('en-US',{month:'short',year:'numeric',timeZone:'UTC'});
 
   const pillars=["Language","Value","Coordination"];
-  const layerOpts=["Foundation","Context","Intent","Interaction","Trust","Value","Coordination","Agents"];
-  const matOpts=["Theoretical","Experimental","Emerging","Growing","Established"];
+  const layerOpts=LAYERS.map(lg=>lg.layer);
+  const matOpts=Object.keys(MATURITY);
 
-  function chipHTML(label,arr){
+  function chipHTML(label,arr,title){
     const active=arr.includes(label);
-    return `<button class="chip${active?' active':''}" data-filter="${label}">${esc(label)}</button>`;
+    return `<button class="chip${active?' active':''}" data-filter="${label}"${title?` title="${esc(title)}"`:''}>${esc(label)}</button>`;
   }
 
   let html=`
@@ -226,45 +252,52 @@ function render(){
           <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
         </a>
       </div>
+      <p class="thesis">
+        Software historically organized human coordination around applications
+        and interfaces. Language-based systems make it possible to organize
+        coordination around meaning itself.
+      </p>
       <p>
-        Personal agents, messaging apps, feeds, CRMs, and calendars are
-        historical artifacts of product boundaries\u2014not fundamental
-        coordination primitives.
+        Personal agents, messaging apps, feeds, CRMs, and calendars are products
+        shaped by historical software boundaries, not fundamental primitives of
+        human coordination.
         <br><br>
-        If natural language is the new API, primitives are bounded by human
-        language, not technics.
+        If language is the new API, coordination is no longer bounded by
+        software, but by meaning.
         <br><br>
-        When language becomes the boundary, meaning replaces UI as the
-        organizing principle. The question follows naturally: how does
-        information organize around meaning?
+        This changes the organizing principle of software. Instead of forcing
+        human behavior into predefined interfaces and workflows, systems can
+        organize around what people mean, want, know, offer, and agree to.
         <br><br>
-        Human coordination primitives surface as the interface\u2014shared
-        goals, common problems, intent, agreement, trust, and the broader
-        elements of information exchange and social behavior.
+        The underlying building blocks are coordination primitives: identity,
+        context, intent, trust, negotiation, agreement, delegation, and the many
+        ways humans exchange information and organize collective action.
         <br><br>
-        This map tracks and catalogs them.
+        This map is an evolving attempt to identify, classify, and track those
+        primitives.
       </p>
     </div>
 
     <div class="stats">
-      <div class="stat"><div class="stat-value">${SUMMARY.totalPrimitives}</div><div class="stat-label">Primitives</div></div>
-      <div class="stat"><div class="stat-value">${SUMMARY.totalLayers}</div><div class="stat-label">Layers</div></div>
-      <div class="stat"><div class="stat-value">${esc(SUMMARY.avgFormationRate)}</div><div class="stat-label">Formation Rate</div></div>
-      <div class="stat"><div class="stat-value">${esc(SUMMARY.totalTAM)}</div><div class="stat-label">TAM Unlocked</div></div>
+      <div class="stat"><div class="stat-value">${totalAll}</div><div class="stat-label">Primitives</div></div>
+      <div class="stat"><div class="stat-value">${LAYERS.length}</div><div class="stat-label">Layers</div></div>
+      <div class="stat"><div class="stat-value">${projectsTracked}</div><div class="stat-label">Projects Tracked</div></div>
+      <div class="stat"><div class="stat-value">${esc(lastRevised)}</div><div class="stat-label">Last Revised</div></div>
     </div>
+    <p class="notice">Formation rates and market figures are unsourced estimates: rates are speculative and market figures are unverified. They overlap and are never summed. See <a href="#methodology">Methodology</a>.</p>
 
     <div class="filters">
       <div class="filter-row"><span class="filter-label">Pillar</span>${pillars.map(p=>chipHTML(p,fp)).join('')}</div>
       <div class="filter-row"><span class="filter-label">Layer</span>${layerOpts.map(l=>chipHTML(l,fl)).join('')}</div>
-      <div class="filter-row"><span class="filter-label">Maturity</span>${matOpts.map(m=>chipHTML(m,fm)).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Maturity</span>${matOpts.map(m=>chipHTML(m,fm,MATURITY[m])).join('')}</div>
       ${hasFilters?'<button class="clear-btn" id="clear-filters">Clear filters</button>':''}
     </div>
 
     <div class="col-header">
       <span class="col-name">Primitive</span>
       <span class="col-pillars">Pillars</span>
-      <span class="col-rate">Rate</span>
-      <span class="col-tam">TAM</span>
+      <span class="col-rate" title="Estimated formation rate (speculative)">Est. Rate</span>
+      <span class="col-tam" title="Markets influenced (unverified)">Market</span>
       <span class="col-maturity">Maturity</span>
       <span class="col-arrow"></span>
     </div>`;
@@ -280,27 +313,34 @@ function render(){
       lg.primitives.forEach(p=>{
         const key=p.name;
         const isOpen=expanded[key];
+        const sources=p.sources||[];
+        const confidence=p.confidence||(sources.length?'Not assessed':'Low');
         html+=`<div class="prim">
           <button class="prim-btn" data-prim="${esc(key)}">
             <span class="prim-name">${esc(p.name)}</span>
-            <span class="prim-pillars">${p.pillars.map(pl=>`<span class="pill pill-${pl}">${pl}</span>`).join('')}</span>
+            <span class="prim-pillars">${p.kind?`<span class="kind-tag">${esc(p.kind)}</span>`:''}${p.pillars.map(pl=>`<span class="pill pill-${pl}">${pl}</span>`).join('')}</span>
             <span class="prim-rate">${esc(p.formationRate)}</span>
             <span class="prim-tam">${esc(p.tamUnlocked)}</span>
-            <span class="prim-maturity mat-${p.maturity}">${p.maturity}</span>
+            <span class="prim-maturity mat-${p.maturity}" title="${esc(MATURITY[p.maturity]||'')}">${p.maturity}</span>
             <svg class="prim-arrow${isOpen?' open':''}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
           <div class="prim-detail${isOpen?' open':''}">
             <div class="prim-detail-inner">
               <p class="prim-def">${esc(p.definition)}</p>
-              <div class="prim-replaces"><span class="label">Replaces: </span><span class="val">${esc(p.legacyEquivalent)}</span></div>
+              <div class="prim-replaces"><span class="label">Legacy equivalent: </span><span class="val">${esc(p.legacyEquivalent)}</span></div>
               <div class="detail-stats">
-                <div class="detail-stat"><span class="label">Formation</span><span class="val">${esc(p.formationRate)}</span></div>
-                <div class="detail-stat"><span class="label">TAM Unlocked</span><span class="val">${esc(p.tamUnlocked)}</span></div>
-                <div class="detail-stat"><span class="label">Maturity</span><span class="val mat-${p.maturity}">${p.maturity}</span></div>
+                <div class="detail-stat"><span class="label">Est. Formation Rate</span><span class="val">${esc(p.formationRate)}</span><span class="qual">${sources.length?'see sources':'speculative'}</span></div>
+                <div class="detail-stat"><span class="label">Markets Influenced</span><span class="val">${esc(p.tamUnlocked)}</span><span class="qual">${sources.length?esc(p.marketBasis||'basis not stated'):'unverified · basis not stated'}</span></div>
+                <div class="detail-stat"><span class="label">Maturity</span><span class="val mat-${p.maturity}">${p.maturity}</span><span class="qual">not yet re-assessed</span></div>
+                <div class="detail-stat"><span class="label">Confidence</span><span class="val">${esc(confidence)}</span><span class="qual">${sources.length?`${sources.length} source${sources.length!==1?'s':''}`:'no sources cited'}</span></div>
               </div>
-              <div class="detail-pillars-mobile">${p.pillars.map(pl=>`<span class="pill pill-${pl}">${pl}</span>`).join('')}</div>
+              <div class="detail-pillars-mobile">${p.kind?`<span class="kind-tag">${esc(p.kind)}</span>`:''}${p.pillars.map(pl=>`<span class="pill pill-${pl}">${pl}</span>`).join('')}</div>
+              ${p.taxonomyNote?`<p class="prim-note"><span class="label">Abstraction level (${esc(p.kind)}): </span>${esc(p.taxonomyNote)}</p>`:''}
+              ${p.overlapNote?`<p class="prim-note"><span class="label">Overlap: </span>${esc(p.overlapNote)}</p>`:''}
               <div class="detail-section"><span class="label">Key Instantiations</span><div class="tags">${p.instantiations.map(i=>`<span class="tag">${esc(i.name)}${i.approach?`<span class="approach"> (${esc(i.approach)})</span>`:''}</span>`).join('')}</div></div>
               <div class="detail-section"><span class="label">Composes With</span><div class="tags">${p.composesWith.map(c=>`<span class="tag-outline">${esc(c)}</span>`).join('')}</div></div>
+              ${sources.length?`<div class="detail-section"><span class="label">Sources</span><div class="tags">${sources.map(s=>s.url&&/^https?:\/\//.test(s.url)?`<a class="tag-outline" href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.label||s.url)}</a>`:`<span class="tag-outline">${esc(s.label||'')}</span>`).join('')}</div></div>`:''}
+              <div class="prim-replaces"><span class="label">Last reviewed: </span><span class="val">${p.reviewed?esc(p.reviewed):'not yet reviewed against sources'}</span></div>
             </div>
           </div>
         </div>`;
@@ -315,27 +355,39 @@ function render(){
 
   <div class="lenses">
     <div class="lens">
-      <h2>Relevancy ↔ Reputation ↔ Trust transformation</h2>
+      <h2>Relevancy ↔ Reputation ↔ Trust</h2>
+      <p class="lens-intro">
+        A conceptual model, not a universal transformation. The three are
+        often linked, since repeated relevance can build reputation, and
+        reputation can support trust, but each can exist without the others.
+        A stranger can be relevant, a reputable actor can be irrelevant here,
+        and people extend trust on grounds other than track record.
+      </p>
       <div class="rrt-flow">
         <div class="rrt-node">
           <div class="rrt-node-title">Relevancy</div>
-          <div class="rrt-node-question">"Are you useful right now in this context?"</div>
-          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Present</div>
+          <div class="rrt-node-question">"Does this fit what I need, here and now?"</div>
+          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Contextual fit · Present</div>
         </div>
         <div class="rrt-node">
           <div class="rrt-node-title">Reputation</div>
-          <div class="rrt-node-question">"Have you been useful repeatedly in similar contexts?"</div>
-          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Past</div>
+          <div class="rrt-node-question">"What does the accumulated evidence say about you?"</div>
+          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Accumulated evidence · Past</div>
         </div>
         <div class="rrt-node">
           <div class="rrt-node-title">Trust</div>
-          <div class="rrt-node-question">"Do I believe you'll continue to be useful?"</div>
-          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Future</div>
+          <div class="rrt-node-question">"Am I willing to rely on you when I can't be sure of the outcome?"</div>
+          <div class="rrt-node-question" style="margin-top:.5rem;font-style:normal;font-size:.7rem;color:#6b7280">Willingness to rely under uncertainty · Future</div>
         </div>
       </div>
     </div>
     <div class="lens">
       <h2>Relevancy × Appropriateness matrix</h2>
+      <p class="lens-intro">
+        Relevancy asks whether information or a request fits the task at hand.
+        Appropriateness asks whether it respects the norms of the context in
+        which it is shared. The two vary independently.
+      </p>
       <div class="ra-wrap"><div class="ra-matrix">
         <div></div>
         <div class="ra-axis">Irrelevant</div>
@@ -344,72 +396,185 @@ function render(){
         <div class="ra-cell benign">
           <div class="ra-cell-title">Benign noise</div>
           <div class="ra-cell-desc">Harmless but contextually meaningless.</div>
-          <div class="ra-cell-example">"It doesn't help right now, but at least it doesn't compromise my privacy."</div>
-          <div class="ra-cell-scenario"><strong>Job interview</strong> — complimenting someone's <em>coffee mug</em>.</div>
+          <div class="ra-cell-example">"It doesn't help right now, but nothing is overstepped."</div>
+          <div class="ra-cell-scenario"><strong>Doctor's visit</strong> — chatting about <em>the weather</em>.</div>
         </div>
         <div class="ra-cell ideal">
           <div class="ra-cell-title">Ideal</div>
-          <div class="ra-cell-desc">Meaningful <em>and</em> preserves autonomy.</div>
-          <div class="ra-cell-example">"This insight is useful, and I can act on it without giving up control."</div>
-          <div class="ra-cell-scenario"><strong>Job interview</strong> — discussing <em>how much I earn</em>.</div>
+          <div class="ra-cell-desc">Meaningful <em>and</em> respects the context's norms.</div>
+          <div class="ra-cell-example">"This is useful, and it's the kind of thing I expect to share here."</div>
+          <div class="ra-cell-scenario"><strong>Doctor's visit</strong> — being asked <em>which medications you take</em>.</div>
         </div>
         <div class="ra-axis ra-axis-y">Inappropriate</div>
         <div class="ra-cell collapse">
           <div class="ra-cell-title">Context collapse</div>
           <div class="ra-cell-desc">Neither useful nor respectful of boundaries.</div>
           <div class="ra-cell-example">"Off-topic <em>and</em> intrusive—the worst kind of interaction."</div>
-          <div class="ra-cell-scenario"><strong>Casual dinner</strong> — asking <em>how much I earn</em>. Spam?</div>
+          <div class="ra-cell-scenario"><strong>Job interview</strong> — being asked about <em>your religious beliefs</em>.</div>
         </div>
         <div class="ra-cell coercive">
           <div class="ra-cell-title">Coercive relevance</div>
-          <div class="ra-cell-desc">Helpful but extracts too much data or control.</div>
-          <div class="ra-cell-example">"Spot-on suggestion, but requires sharing private info I'd rather not."</div>
-          <div class="ra-cell-scenario"><strong>Dating</strong> — asking <em>how much I earn</em>.</div>
+          <div class="ra-cell-desc">Serves a legitimate need but takes more data or control than it requires.</div>
+          <div class="ra-cell-example">"The goal makes sense, but this asks for far more than it needs."</div>
+          <div class="ra-cell-scenario"><strong>Renting an apartment</strong> — landlord asks for <em>your bank login</em> to verify income.</div>
         </div>
       </div></div>
     </div>
     <div class="lens">
       <h2>Market Relationships</h2>
-      <p class="mr-intro">This triad enables convergence of existing markets and the creation of new ones.</p>
+      <p class="mr-intro">
+        Hypotheses about how three primitives (Intent, Value, and Agents) may
+        combine. Each row separates the relationship between primitives, the
+        coordination mechanism it could produce, and the markets where that
+        mechanism might apply. Existing markets may be transformed,
+        complemented, or left largely intact; none of this is a forecast.
+      </p>
       <div class="mr-table-wrap">
         <table class="mr-table">
           <thead>
-            <tr><th>Relationship</th><th>Market</th><th>Key Features</th></tr>
+            <tr><th>Primitive relationship</th><th>Emerging coordination mechanism</th><th>Potential market applications</th></tr>
           </thead>
           <tbody>
             <tr>
               <td class="mr-rel">intent ↔ intents</td>
-              <td class="mr-market">Social, Agent-discovery</td>
-              <td class="mr-features">Decentralized social & agentic social</td>
+              <td class="mr-features">Matching people or agents whose stated intents complement each other</td>
+              <td class="mr-market">Social discovery, agent discovery</td>
             </tr>
             <tr>
               <td class="mr-rel">intent ↔ agents</td>
-              <td class="mr-market">Consumer AI, Personalization Market</td>
-              <td class="mr-features">Memory, context-aware copilots</td>
+              <td class="mr-features">Agents that act on a person's stated intent, using memory and context</td>
+              <td class="mr-market">Consumer AI, personalization</td>
             </tr>
             <tr>
               <td class="mr-rel">intent ↔ value</td>
-              <td class="mr-market">Advertising / Reputation Systems</td>
-              <td class="mr-features">Intents become signals for demand, replacing advertising with direct economic coordination.</td>
+              <td class="mr-features">Expressed intent used as a direct demand signal that buyers and sellers can coordinate around</td>
+              <td class="mr-market">Could complement or reshape parts of advertising, lead generation, and reputation systems</td>
             </tr>
             <tr>
               <td class="mr-rel">value ↔ agents</td>
-              <td class="mr-market">Decentralized AI</td>
-              <td class="mr-features">Agents themselves act as economic actors, staking resources and earning returns on useful contributions.</td>
+              <td class="mr-features">Agents that hold, exchange, or stake value on behalf of the people they represent</td>
+              <td class="mr-market">Agent payments, decentralized AI</td>
             </tr>
             <tr>
               <td class="mr-rel">agg(intent) ↔ value</td>
-              <td class="mr-market">Info-Finance / Prediction Infrastructure</td>
-              <td class="mr-features">Aggregated intent data priced like assets (Google Trends × Market Cap)</td>
+              <td class="mr-features">Aggregated intent treated as priced information about future demand</td>
+              <td class="mr-market">Information finance, prediction infrastructure</td>
             </tr>
             <tr>
               <td class="mr-rel">intents ↔ agg(intents)</td>
-              <td class="mr-market">Collective Intelligence</td>
-              <td class="mr-features">Demand discovery, wisdom-of-crowds intent pools</td>
+              <td class="mr-features">Pooling individual intents to reveal shared demand or common problems</td>
+              <td class="mr-market">Collective intelligence, demand discovery</td>
             </tr>
           </tbody>
         </table>
       </div>
+    </div>
+
+    <div class="lens method" id="methodology">
+      <h2>Methodology</h2>
+      <p>
+        This map is a working hypothesis, not a dataset. The sections below
+        explain how entries are chosen and classified, what each figure
+        represents, and how much confidence to place in it.
+      </p>
+
+      <h3>What qualifies as a primitive</h3>
+      <p>An entry is treated as a coordination primitive when it:</p>
+      <ul>
+        <li>can be described in ordinary language without referring to a particular product or protocol;</li>
+        <li>has persisted across tools and eras, so it has a recognizable legacy equivalent;</li>
+        <li>can be represented in a form that people and agents can both read and act on; and</li>
+        <li>composes with other primitives to produce larger forms of coordination.</li>
+      </ul>
+      <p>
+        Some current entries are implementations, mechanisms, actors, or market
+        categories rather than primitives in this sense: Smart Contract, DeFi,
+        Prediction Market, Workflow, Agent, and Oracle. They are kept in their
+        existing layers and marked with a dashed tag until a revised taxonomy
+        can be justified. Overlapping entries, such as Reputation, Credibility,
+        Endorsement, Vouch, and Perception, are kept separate where they serve
+        different functions; each carries a note explaining the distinction.
+      </p>
+
+      <h3>How primitives are classified into layers</h3>
+      <p>
+        Layers group primitives by the question they answer: who is involved,
+        what they know, what they want, what happens between them, what they
+        have earned, what flows, how they organize, and who acts on their
+        behalf. Layers are an organizing lens, not a strict dependency stack,
+        and some primitives plausibly belong to more than one. Pillars
+        (Language, Value, Coordination) mark the dimension each primitive
+        mainly operates in.
+      </p>
+
+      <h3>How maturity is assessed</h3>
+      <p>
+        Maturity describes how far the primitive has been implemented and
+        adopted in <strong>agent-mediated</strong> coordination, not whether
+        the underlying human behavior exists; every primitive here exists in
+        human life already.
+      </p>
+      <dl class="def-list" style="margin-top:.75rem">
+        ${Object.entries(MATURITY).map(([k,v])=>`<dt class="mat-${k}">${k}</dt><dd>${esc(v)}</dd>`).join('')}
+      </dl>
+      <p style="margin-top:.75rem">
+        Current maturity labels predate these definitions and have not yet
+        been re-assessed against them.
+      </p>
+
+      <h3>What the estimated formation rate represents</h3>
+      <p>
+        The estimated formation rate is a rough guess at what share of the
+        relevant activity already runs through programmable, machine-readable
+        forms of the primitive, such as on-chain records or agent-readable
+        protocols, rather than through its legacy equivalent. It does not
+        measure adoption of any specific product, so it is not called an
+        adoption rate. No dataset or source is recorded for any current
+        figure: every rate is <strong>speculative</strong> and should be read
+        as an order-of-magnitude guess at most.
+      </p>
+
+      <h3>How market estimates are calculated</h3>
+      <p>
+        Each market figure is an estimate of the market or economic activity
+        a primitive could influence. No source, method, or basis is recorded
+        for any current figure, so all are <strong>unverified</strong>. Some
+        appear to describe existing economic activity or asset values rather
+        than revenue a new system could capture; Token's $400T+, for example,
+        is far larger than any plausible revenue pool. Figures also overlap
+        heavily (Transaction, Smart Contract, Token, and DeFi describe much of
+        the same activity), so they are <strong>never summed</strong> into a
+        single total.
+      </p>
+      <p>Revised estimates should state which measure they use:</p>
+      <ul>
+        <li><strong>Market size</strong>: current annual spending on the legacy equivalent.</li>
+        <li><strong>Economic value facilitated</strong>: the value of activity that passes through the primitive, such as payment volume.</li>
+        <li><strong>Addressable revenue</strong>: fees or revenue that systems built on the primitive could plausibly earn.</li>
+      </ul>
+
+      <h3>Sources, confidence, and review</h3>
+      <ul>
+        <li><strong>High confidence</strong>: multiple independent, recent sources agree.</li>
+        <li><strong>Medium confidence</strong>: one credible source, or a derivation with stated assumptions.</li>
+        <li><strong>Low confidence</strong>: no source cited; an author's estimate. This currently applies to every entry.</li>
+      </ul>
+      <p style="margin-top:.75rem">
+        Each entry can record its sources, confidence, market basis, and the
+        date it was last reviewed. Entries without a review date have not yet
+        been checked against sources. The map as a whole was last revised on
+        ${esc(META.lastRevised)}.
+      </p>
+
+      <h3>Contributing</h3>
+      <p>
+        Corrections, sources, and new primitives are welcome. Edit
+        <a href="https://github.com/indexnetwork/primitives/blob/main/data.js" target="_blank" rel="noopener">data.js</a>
+        and open a pull request on
+        <a href="https://github.com/indexnetwork/primitives" target="_blank" rel="noopener">GitHub</a>.
+        Citations should link to a public source and state what the number
+        measures.
+      </p>
     </div>
   </div>`;
   app.innerHTML=html;
