@@ -120,7 +120,8 @@ const LAYERS = [
         pillars: ["Language"],
         formationRate: "~5%",
         tamUnlocked: "$25B+",
-        maturity: "Emerging",
+        maturity: "Established",
+        maturityAssessed: "2026-11-13",
         definition: "Shared information layer",
         legacyEquivalent: "Wikis, databases, documentation, encyclopedias",
         instantiations: [
