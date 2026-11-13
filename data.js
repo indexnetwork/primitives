@@ -31,6 +31,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$15B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Attestation. A credential is a claim held about a subject; an attestation is a third party's act of signing for a claim.",
         definition: "Provable attribute attached to identity",
         legacyEquivalent: "Diplomas, certificates, licenses, resumes",
         instantiations: [
@@ -54,6 +55,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$10B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Credential / Claim. An attestation is the act of vouching for a statement; the credential is the resulting claim a subject holds.",
         definition: "Third-party verification of a claim",
         legacyEquivalent: "Notarization, background checks, audits",
         instantiations: [
@@ -136,6 +138,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$40B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Taste. A preference ranks options for a choice; taste is a qualitative judgment that expresses identity and often explains preferences.",
         definition: "Declared or inferred user desires",
         legacyEquivalent:
           "User profiles, settings, cookies, recommendation engines",
@@ -170,6 +173,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$50B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Preference. Taste is a qualitative, often aesthetic judgment; preferences are the concrete rankings it can produce.",
         definition: "Curated aesthetic sensibility as a signal",
         legacyEquivalent:
           "Playlists, mood boards, wishlists, taste profiles, editorial picks",
@@ -316,6 +320,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$5B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Perception. Gossip is the informal channel through which information about others travels; perception is the impression that results.",
         definition: "Informal peer-to-peer signal propagation through social graphs",
         legacyEquivalent: "Word of mouth, rumors, grapevine, informal networks",
         instantiations: [
@@ -373,6 +378,7 @@ const LAYERS = [
         formationRate: "~1%",
         tamUnlocked: "$50B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Agreement. A commitment is a pledge one party makes; an agreement is mutual assent between parties.",
         definition: "Binding promise between parties",
         legacyEquivalent: "Contracts, handshakes, SLAs, MOUs",
         instantiations: [
@@ -395,6 +401,8 @@ const LAYERS = [
         formationRate: "~2%",
         tamUnlocked: "$1T+",
         maturity: "Growing",
+        kind: "Implementation",
+        taxonomyNote: "A programmable mechanism for executing Commitments and Agreements, not a coordination concept in its own right. Kept in Interaction until a taxonomy revision is agreed.",
         definition: "Self-executing agreement",
         legacyEquivalent: "Legal contracts + lawyers + escrow agents",
         instantiations: [
@@ -442,6 +450,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$50B+",
         maturity: "Emerging",
+        overlapNote: "Overlaps with Commitment. An agreement is mutual assent between parties; it usually bundles commitments from each side.",
         definition:
           "Formalized binding arrangement between parties with verifiable execution",
         legacyEquivalent:
@@ -474,6 +483,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$50B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Credibility, Endorsement, Vouch, and Perception. Reputation is accumulated, shared evidence about an actor's past behavior.",
         definition: "Aggregated trust signal",
         legacyEquivalent:
           "Credit scores, Yelp reviews, professional references",
@@ -498,6 +508,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$5B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Vouch and Reputation. An endorsement is a specific, attributable statement of support; it is one kind of evidence that reputation accumulates.",
         definition: "Explicit positive signal about another party",
         legacyEquivalent:
           "LinkedIn endorsements, testimonials, recommendations",
@@ -516,6 +527,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$10B+",
         maturity: "Experimental",
+        overlapNote: "Overlaps with Endorsement. A vouch differs by putting the voucher's own standing or stake at risk if the vouched-for party fails.",
         definition: "Stake-backed trust delegation",
         legacyEquivalent: "Personal references, guarantors, co-signers",
         instantiations: [
@@ -532,6 +544,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$20B+",
         maturity: "Theoretical",
+        overlapNote: "Overlaps with Reputation and Gossip. Perception is the subjective, possibly unfounded impression others hold; reputation is its evidence-based counterpart, and gossip is one channel that shapes it.",
         definition: "Agent-interpreted social behavior",
         legacyEquivalent:
           "Gossip, social judgment, word of mouth, gut feeling",
@@ -553,6 +566,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$15B+",
         maturity: "Theoretical",
+        overlapNote: "Overlaps with Reputation. Credibility is whether an actor's claims are believable in a specific domain; reputation can support it, but a newcomer can be credible without a track record.",
         definition: "Demonstrated reliability over time",
         legacyEquivalent:
           "Track record, brand trust, certifications, tenure",
@@ -641,6 +655,8 @@ const LAYERS = [
         formationRate: "~1%",
         tamUnlocked: "$100B+",
         maturity: "Growing",
+        kind: "Market category",
+        taxonomyNote: "A family of financial applications built from Token, Escrow, and Smart Contract. The underlying primitive is closer to Liquidity or Exchange. Kept in Value until a taxonomy revision is agreed.",
         definition: "Automated market infrastructure",
         legacyEquivalent: "Banks, stock exchanges, market makers, brokers",
         instantiations: [
@@ -770,6 +786,8 @@ const LAYERS = [
         formationRate: "~2%",
         tamUnlocked: "$30B+",
         maturity: "Growing",
+        kind: "Mechanism",
+        taxonomyNote: "A mechanism that aggregates beliefs through priced Offers on future outcomes. The underlying primitive is closer to Forecast or belief aggregation. Kept in Coordination until a taxonomy revision is agreed.",
         definition: "Collective intelligence through priced beliefs",
         legacyEquivalent:
           "Polls, analyst forecasts, futures markets, expert panels",
@@ -795,6 +813,8 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$500B+",
         maturity: "Emerging",
+        kind: "Actor",
+        taxonomyNote: "An actor that carries out other primitives (Intent, Delegation, Task) rather than a coordination act itself. The underlying primitive is closer to delegated agency. Kept in Agents until a taxonomy revision is agreed.",
         definition: "Autonomous actor on behalf of a human",
         legacyEquivalent: "Employees, brokers, assistants, contractors",
         instantiations: [
@@ -829,6 +849,8 @@ const LAYERS = [
         formationRate: "~5%",
         tamUnlocked: "$10B+",
         maturity: "Growing",
+        kind: "Mechanism",
+        taxonomyNote: "A mechanism for bringing external facts into a shared system; closely related to Attestation. Kept in Agents until a taxonomy revision is agreed.",
         definition: "Verified external data source",
         legacyEquivalent:
           "Data providers, auditors, fact-checkers, news agencies",
@@ -853,6 +875,8 @@ const LAYERS = [
         formationRate: "~1%",
         tamUnlocked: "$15B+",
         maturity: "Experimental",
+        kind: "Implementation pattern",
+        taxonomyNote: "An ordered composition of Tasks, Decisions, and Delegation rather than a distinct primitive. Kept in Agents until a taxonomy revision is agreed.",
         definition: "Composed sequence of tasks and decisions",
         legacyEquivalent:
           "Business processes, assembly lines, SOPs, IFTTT/Zapier",
@@ -874,9 +898,17 @@ const LAYERS = [
   },
 ];
 
-const SUMMARY = {
-  totalPrimitives: 40,
-  totalLayers: 8,
-  avgFormationRate: "~1.5%",
-  totalTAM: "~$2.6T+",
+// Map-wide metadata. Counts are derived from LAYERS at render time.
+const META = {
+  lastRevised: "2026-11-13",
+};
+
+// Maturity of a primitive's implementation in agent-mediated coordination,
+// not of the underlying human behavior.
+const MATURITY = {
+  Theoretical: "Described conceptually; no known working implementation for agent-mediated use.",
+  Experimental: "Prototypes, research projects, or early protocols exist, with little use beyond their builders.",
+  Emerging: "Live implementations with real but limited use; standards and interoperability are unsettled.",
+  Growing: "Several production implementations with sustained, increasing use and some interoperability.",
+  Established: "Widely used and standardized; relied on by default in agent-mediated coordination.",
 };
