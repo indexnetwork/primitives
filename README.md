@@ -8,6 +8,17 @@ This map is an evolving attempt to identify, classify, and track those primitive
 
 **[View the map](https://indexnetwork.github.io/primitives/)**
 
+## v2: a grammar for the map
+
+**[View v2](https://indexnetwork.github.io/primitives/v2/)**
+
+v2 is a hypothesis about what would make the v1 list derivable. It reclassifies the same entries into five kinds (parties, attitudes, acts, positions, records), five operators (aggregate, stake, condition, delegate, scope), one loop, and one underlying relation (reliance). It also marks entries v1 leans on without listing, and empty cells the grammar predicts.
+
+- `v2/grammar.js`: the classification, keyed by primitive name. It overlays `data.js` and copies nothing from it.
+- `v2/index.html`: rendering.
+
+v2 adds no figures, sources, or instantiations. Renaming a primitive in `data.js` means renaming its key in `v2/grammar.js`.
+
 ## Structure
 
 - `data.js`: primitive data (layers, primitives, maturity levels, map metadata)
