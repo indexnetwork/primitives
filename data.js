@@ -121,7 +121,6 @@ const LAYERS = [
         formationRate: "~5%",
         tamUnlocked: "$25B+",
         maturity: "Established",
-        maturityAssessed: "2026-11-13",
         definition: "Shared information layer",
         legacyEquivalent: "Wikis, databases, documentation, encyclopedias",
         instantiations: [
@@ -430,7 +429,7 @@ const LAYERS = [
         definition:
           "Structured multi-party protocol for reaching agreement through iterative exchange",
         legacyEquivalent:
-          "Contract negotiation, collective bargaining, RFP process, price discovery",
+          "Contract negotiation, union bargaining, RFP process, price discovery",
         instantiations: [
           { name: "Pact", approach: "Basis" },
           { name: "Autonolas" },
@@ -729,7 +728,7 @@ const LAYERS = [
         formationRate: "<1%",
         tamUnlocked: "$3B+",
         maturity: "Emerging",
-        definition: "Formal request for collective action",
+        definition: "Formal request for group action",
         legacyEquivalent: "Bills, motions, RFCs, budget requests",
         instantiations: [
           { name: "Snapshot" },
@@ -789,7 +788,7 @@ const LAYERS = [
         maturity: "Growing",
         kind: "Mechanism",
         taxonomyNote: "A mechanism that aggregates beliefs through priced Offers on future outcomes. The underlying primitive is closer to Forecast or belief aggregation. Kept in Coordination until a taxonomy revision is agreed.",
-        definition: "Collective intelligence through priced beliefs",
+        definition: "Crowd wisdom through priced beliefs",
         legacyEquivalent:
           "Polls, analyst forecasts, futures markets, expert panels",
         instantiations: [
@@ -904,12 +903,4 @@ const META = {
   lastRevised: "2026-11-13",
 };
 
-// Maturity of a primitive's implementation in agent-mediated coordination,
-// not of the underlying human behavior.
-const MATURITY = {
-  Theoretical: "Described conceptually; no known working implementation for agent-mediated use.",
-  Experimental: "Prototypes, research projects, or early protocols exist, with little use beyond their builders.",
-  Emerging: "Live implementations with real but limited use; standards and interoperability are unsettled.",
-  Growing: "Several production implementations with sustained, increasing use and some interoperability.",
-  Established: "Widely used and standardized; relied on by default in agent-mediated coordination.",
-};
+const MATURITY_LEVELS = ["Theoretical", "Experimental", "Emerging", "Growing", "Established"];

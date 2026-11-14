@@ -168,17 +168,8 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 .prim-note .label{color:#6b7280}
 .qual{font-size:.7rem;color:#6b7280;display:block;margin-top:.15rem}
 
-/* Lens + methodology text */
+/* Lens text */
 .lens-intro{font-size:.875rem;color:#9ca3af;line-height:1.7;margin-bottom:1rem}
-.method h3{font-size:.875rem;font-weight:700;margin:1.75rem 0 .5rem}
-.method p,.method li{font-size:.8125rem;color:#9ca3af;line-height:1.7}
-.method ul{padding-left:1.25rem}
-.method li+li{margin-top:.35rem}
-.method p+ul,.method ul+p,.method p+p{margin-top:.6rem}
-.method strong{color:#d1d5db;font-weight:500}
-.def-list{display:grid;grid-template-columns:auto 1fr;gap:.5rem 1rem;font-size:.8125rem;line-height:1.6}
-.def-list dt{font-weight:500}
-.def-list dd{color:#9ca3af}
 
 /* Footer */
 .footer{text-align:center;padding:1rem 0;margin-bottom:1rem;font-size:.75rem;color:#4b5563}
@@ -237,7 +228,7 @@ function render(){
 
   const pillars=["Language","Value","Coordination"];
   const layerOpts=LAYERS.map(lg=>lg.layer);
-  const matOpts=Object.keys(MATURITY);
+  const matOpts=MATURITY_LEVELS;
 
   function chipHTML(label,arr,title){
     const active=arr.includes(label);
@@ -271,7 +262,7 @@ function render(){
         <br><br>
         The underlying building blocks are coordination primitives: identity,
         context, intent, trust, negotiation, agreement, delegation, and the many
-        ways humans exchange information and organize collective action.
+        ways humans exchange information and act together.
         <br><br>
         This map is an evolving attempt to identify, classify, and track those
         primitives.
@@ -284,12 +275,12 @@ function render(){
       <div class="stat"><div class="stat-value">${projectsTracked}</div><div class="stat-label">Projects Tracked</div></div>
       <div class="stat"><div class="stat-value">${esc(lastRevised)}</div><div class="stat-label">Last Revised</div></div>
     </div>
-    <p class="notice">Formation rates and market figures are unsourced estimates: rates are speculative and market sizes are unverified. Market sizes overlap and are never summed. See <a href="#methodology">Methodology</a>.</p>
+    <p class="notice">Formation rates, market sizes, and maturity levels are speculative. We don't have a methodology for them yet, so we don't know how accurate they are. Market sizes overlap and are never summed.</p>
 
     <div class="filters">
       <div class="filter-row"><span class="filter-label">Pillar</span>${pillars.map(p=>chipHTML(p,fp)).join('')}</div>
       <div class="filter-row"><span class="filter-label">Layer</span>${layerOpts.map(l=>chipHTML(l,fl)).join('')}</div>
-      <div class="filter-row"><span class="filter-label">Maturity</span>${matOpts.map(m=>chipHTML(m,fm,MATURITY[m])).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Maturity</span>${matOpts.map(m=>chipHTML(m,fm)).join('')}</div>
       ${hasFilters?'<button class="clear-btn" id="clear-filters">Clear filters</button>':''}
     </div>
 
@@ -297,7 +288,7 @@ function render(){
       <span class="col-name">Primitive</span>
       <span class="col-pillars">Pillars</span>
       <span class="col-rate" title="Estimated formation rate (speculative)">Est. Rate</span>
-      <span class="col-tam" title="Market size (unverified)">Market Size</span>
+      <span class="col-tam" title="Market size (speculative)">Market Size</span>
       <span class="col-maturity">Maturity</span>
       <span class="col-arrow"></span>
     </div>`;
@@ -321,7 +312,7 @@ function render(){
             <span class="prim-pillars">${p.kind?`<span class="kind-tag">${esc(p.kind)}</span>`:''}${p.pillars.map(pl=>`<span class="pill pill-${pl}">${pl}</span>`).join('')}</span>
             <span class="prim-rate">${esc(p.formationRate)}</span>
             <span class="prim-tam">${esc(p.tamUnlocked)}</span>
-            <span class="prim-maturity mat-${p.maturity}" title="${esc(MATURITY[p.maturity]||'')}">${p.maturity}</span>
+            <span class="prim-maturity mat-${p.maturity}" title="Speculative">${p.maturity}</span>
             <svg class="prim-arrow${isOpen?' open':''}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
           </button>
           <div class="prim-detail${isOpen?' open':''}">
@@ -330,8 +321,8 @@ function render(){
               <div class="prim-replaces"><span class="label">Legacy equivalent: </span><span class="val">${esc(p.legacyEquivalent)}</span></div>
               <div class="detail-stats">
                 <div class="detail-stat"><span class="label">Est. Formation Rate</span><span class="val">${esc(p.formationRate)}</span><span class="qual">${sources.length?'see sources':'speculative'}</span></div>
-                <div class="detail-stat"><span class="label">Market Size</span><span class="val">${esc(p.tamUnlocked)}</span><span class="qual">${sources.length?'see sources':'unverified'}</span></div>
-                <div class="detail-stat"><span class="label">Maturity</span><span class="val mat-${p.maturity}">${p.maturity}</span><span class="qual">${p.maturityAssessed?`assessed ${esc(p.maturityAssessed)}`:'not yet re-assessed'}</span></div>
+                <div class="detail-stat"><span class="label">Market Size</span><span class="val">${esc(p.tamUnlocked)}</span><span class="qual">${sources.length?'see sources':'speculative'}</span></div>
+                <div class="detail-stat"><span class="label">Maturity</span><span class="val mat-${p.maturity}">${p.maturity}</span><span class="qual">speculative</span></div>
                 <div class="detail-stat"><span class="label">Confidence</span><span class="val">${esc(confidence)}</span><span class="qual">${sources.length?`${sources.length} source${sources.length!==1?'s':''}`:'no sources cited'}</span></div>
               </div>
               <div class="detail-pillars-mobile">${p.kind?`<span class="kind-tag">${esc(p.kind)}</span>`:''}${p.pillars.map(pl=>`<span class="pill pill-${pl}">${pl}</span>`).join('')}</div>
@@ -463,108 +454,11 @@ function render(){
             <tr>
               <td class="mr-rel">intents ↔ agg(intents)</td>
               <td class="mr-features">Pooling individual intents to reveal shared demand or common problems</td>
-              <td class="mr-market">Collective intelligence, demand discovery</td>
+              <td class="mr-market">Crowd wisdom, demand discovery</td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
-
-    <div class="lens method" id="methodology">
-      <h2>Methodology</h2>
-      <p>
-        This map is a working hypothesis, not a dataset. The sections below
-        explain how entries are chosen and classified, what each figure
-        represents, and how much confidence to place in it.
-      </p>
-
-      <h3>What qualifies as a primitive</h3>
-      <p>An entry is treated as a coordination primitive when it:</p>
-      <ul>
-        <li>can be described in ordinary language without referring to a particular product or protocol;</li>
-        <li>has persisted across tools and eras, so it has a recognizable legacy equivalent;</li>
-        <li>can be represented in a form that people and agents can both read and act on; and</li>
-        <li>composes with other primitives to produce larger forms of coordination.</li>
-      </ul>
-      <p>
-        Some current entries are implementations, mechanisms, actors, or market
-        categories rather than primitives in this sense: Smart Contract, DeFi,
-        Prediction Market, Workflow, Agent, and Oracle. They are kept in their
-        existing layers and marked with a dashed tag until a revised taxonomy
-        can be justified. Overlapping entries, such as Reputation, Credibility,
-        Endorsement, Vouch, and Perception, are kept separate where they serve
-        different functions; each carries a note explaining the distinction.
-      </p>
-
-      <h3>How primitives are classified into layers</h3>
-      <p>
-        Layers group primitives by the question they answer: who is involved,
-        what they know, what they want, what happens between them, what they
-        have earned, what flows, how they organize, and who acts on their
-        behalf. Layers are an organizing lens, not a strict dependency stack,
-        and some primitives plausibly belong to more than one. Pillars
-        (Language, Value, Coordination) mark the dimension each primitive
-        mainly operates in.
-      </p>
-
-      <h3>How maturity is assessed</h3>
-      <p>
-        Maturity describes how far the primitive has been implemented and
-        adopted in <strong>agent-mediated</strong> coordination, not whether
-        the underlying human behavior exists; every primitive here exists in
-        human life already.
-      </p>
-      <dl class="def-list" style="margin-top:.75rem">
-        ${Object.entries(MATURITY).map(([k,v])=>`<dt class="mat-${k}">${k}</dt><dd>${esc(v)}</dd>`).join('')}
-      </dl>
-      <p style="margin-top:.75rem">
-        Most maturity labels predate these definitions and have not yet been
-        re-assessed against them; entries that have been show the date of
-        their assessment.
-      </p>
-
-      <h3>What the estimated formation rate represents</h3>
-      <p>
-        The estimated formation rate is a rough guess at what share of the
-        relevant activity already runs through programmable, machine-readable
-        forms of the primitive, such as on-chain records or agent-readable
-        protocols, rather than through its legacy equivalent. It does not
-        measure adoption of any specific product, so it is not called an
-        adoption rate. No dataset or source is recorded for any current
-        figure: every rate is <strong>speculative</strong> and should be read
-        as an order-of-magnitude guess at most.
-      </p>
-
-      <h3>Market size</h3>
-      <p>
-        We don't have a methodology for market size yet. The figures are
-        <strong>speculative</strong>: there is no source or method behind
-        them, and we don't know how accurate they are. Markets also overlap,
-        so the figures are <strong>never summed</strong> into a single total.
-      </p>
-
-      <h3>Sources, confidence, and review</h3>
-      <ul>
-        <li><strong>High confidence</strong>: multiple independent, recent sources agree.</li>
-        <li><strong>Medium confidence</strong>: one credible source, or a derivation with stated assumptions.</li>
-        <li><strong>Low confidence</strong>: no source cited; an author's estimate. This currently applies to every entry.</li>
-      </ul>
-      <p style="margin-top:.75rem">
-        Each entry can record its sources, confidence, and the
-        date it was last reviewed. Entries without a review date have not yet
-        been checked against sources. The map as a whole was last revised on
-        ${esc(META.lastRevised)}.
-      </p>
-
-      <h3>Contributing</h3>
-      <p>
-        Corrections, sources, and new primitives are welcome. Edit
-        <a href="https://github.com/indexnetwork/primitives/blob/main/data.js" target="_blank" rel="noopener">data.js</a>
-        and open a pull request on
-        <a href="https://github.com/indexnetwork/primitives" target="_blank" rel="noopener">GitHub</a>.
-        Citations should link to a public source and state what the number
-        measures.
-      </p>
     </div>
   </div>`;
   app.innerHTML=html;
