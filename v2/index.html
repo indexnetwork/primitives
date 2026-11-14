@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Primitive Map v2</title>
+<meta name="description" content="A grammar for human coordination primitives: five kinds, five operators, one loop.">
+<meta property="og:title" content="Primitive Map v2">
+<meta property="og:description" content="A grammar for human coordination primitives: five kinds, five operators, one loop.">
+<meta property="og:url" content="https://indexnetwork.github.io/primitives/v2/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Index Network">
+<meta property="og:image" content="https://indexnetwork.github.io/primitives/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Primitive Map v2">
+<meta name="twitter:description" content="A grammar for human coordination primitives: five kinds, five operators, one loop.">
+<meta name="twitter:image" content="https://indexnetwork.github.io/primitives/og.png">
+<meta name="twitter:creator" content="@indexnetwork_">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>◆</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-height:100vh;-webkit-font-smoothing:antialiased}
+.container{max-width:56rem;margin:0 auto;padding:2rem 1rem}
+button{font-family:inherit}
+
+/* Intro */
+.intro{margin-bottom:2rem}
+.intro-header{display:flex;align-items:center;gap:.75rem;flex-wrap:wrap;margin-bottom:.5rem}
+.intro h1{font-size:1.5rem;font-weight:700}
+.version{font-size:.7rem;padding:.125rem .5rem;border-radius:9999px;border:1px dashed rgba(255,255,255,.3);color:#d1d5db}
+.intro p{font-size:.875rem;color:#9ca3af;line-height:1.8}
+.intro .thesis{font-size:1rem;color:#fff;line-height:1.7;margin-bottom:1rem}
+.head-link{font-size:.75rem;color:#6b7280;text-decoration:underline}
+.head-link:hover{color:#d1d5db}
+.github-link{color:#6b7280;transition:color .15s}
+.github-link:hover{color:#d1d5db}
+.github-link svg{width:1.25rem;height:1.25rem;display:block}
+
+/* Stats */
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2rem}
+@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stat{border:1px solid rgba(255,255,255,.1);border-radius:.5rem;padding:1rem;text-align:center}
+.stat-value{font-size:1.5rem;font-weight:700}
+.stat-label{font-size:.875rem;color:#9ca3af;margin-top:.25rem}
+.notice{font-size:.75rem;color:#6b7280;line-height:1.6;margin:-1rem 0 2rem}
+.notice a,.lens a{color:#9ca3af}
+.notice a:hover,.lens a:hover{color:#d1d5db}
+
+/* Grammar summary */
+.grammar{display:grid;grid-template-columns:1fr;gap:1rem;margin-bottom:2rem}
+@media(min-width:768px){.grammar{grid-template-columns:1fr 1fr}}
+.gram-box{border:1px solid rgba(255,255,255,.1);border-radius:.5rem;padding:1rem}
+.gram-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.75rem}
+.gram-row{display:flex;align-items:baseline;gap:.5rem;padding:.3rem 0;font-size:.8125rem;line-height:1.5}
+.gram-name{font-weight:600;width:6.5rem;flex-shrink:0}
+.gram-gloss{color:#9ca3af;flex:1;font-size:.75rem}
+.gram-count{color:#4b5563;font-size:.75rem}
+
+/* Kind colors */
+.k-Party{color:#f9a8d4}
+.k-Attitude{color:#60a5fa}
+.k-Act{color:#fb923c}
+.k-Position{color:#c084fc}
+.k-Record{color:#4ade80}
+.k-Composite{color:#9ca3af}
+
+/* Filters */
+.filters{margin-bottom:2rem}
+.filter-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:.75rem}
+.filter-label{font-size:.75rem;color:#6b7280;width:4.5rem;flex-shrink:0}
+.chip{padding:.25rem .75rem;font-size:.75rem;border-radius:9999px;border:1px solid rgba(255,255,255,.1);background:transparent;color:#6b7280;cursor:pointer;transition:all .15s}
+.chip:hover{color:#d1d5db;border-color:rgba(255,255,255,.2)}
+.chip.active{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1);color:#fff}
+.clear-btn{font-size:.75rem;color:#6b7280;background:none;border:none;cursor:pointer;text-decoration:underline}
+.clear-btn:hover{color:#d1d5db}
+
+/* Column header */
+.col-header{display:none;padding:.5rem 1rem;font-size:10px;color:#4b5563;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid rgba(255,255,255,.1)}
+@media(min-width:640px){.col-header{display:flex;align-items:center;gap:1rem}}
+.col-header .col-name{width:14rem;flex-shrink:0}
+.col-header .col-form{flex:1}
+.col-header .col-layer{width:3rem;text-align:right}
+.col-header .col-arrow{width:1rem}
+
+/* Group */
+.layer{margin-bottom:1.5rem}
+.layer-header{display:flex;align-items:baseline;gap:.75rem;padding:.5rem 1rem;border-bottom:1px solid rgba(255,255,255,.1);flex-wrap:wrap}
+.layer-title{font-size:.875rem;font-weight:700}
+.layer-subtitle{font-size:.75rem;color:#6b7280}
+.layer-count{font-size:.75rem;color:#4b5563;margin-left:auto}
+
+/* Row */
+.prim{border-bottom:1px solid rgba(255,255,255,.03)}
+.prim-btn{width:100%;text-align:left;padding:.75rem 1rem;display:flex;align-items:center;gap:1rem;background:none;border:none;color:#fff;cursor:pointer;font-size:inherit;transition:background .15s}
+.prim-btn:hover{background:rgba(255,255,255,.02)}
+.prim-name{font-size:.875rem;font-weight:500;min-width:0;flex:1;display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}
+.prim-form{display:none;font-size:.75rem;color:#9ca3af;flex:1;min-width:0}
+.prim-layer{display:none;font-size:.75rem;color:#6b7280;width:3rem;text-align:right;flex-shrink:0}
+@media(min-width:640px){.prim-name{width:14rem;flex:none}.prim-form{display:block}.prim-layer{display:block}}
+.prim-arrow{width:1rem;height:1rem;color:#6b7280;transition:transform .2s;flex-shrink:0}
+.prim-arrow.open{transform:rotate(180deg)}
+.status-tag{font-size:10px;padding:.125rem .5rem;border-radius:9999px;border:1px dashed;white-space:nowrap;font-weight:400}
+.status-Unlisted{color:#eab308;border-color:rgba(234,179,8,.45)}
+.status-Predicted{color:#f472b6;border-color:rgba(244,114,182,.5)}
+.basis-tag{font-size:10px;color:#4b5563;white-space:nowrap}
+
+/* Detail */
+.prim-detail{overflow:hidden;max-height:0;transition:max-height .25s ease}
+.prim-detail.open{max-height:1600px}
+.prim-detail-inner{padding:.25rem 1rem 1rem;font-size:.875rem}
+.prim-detail-inner > *+*{margin-top:.75rem}
+.prim-def{color:#d1d5db;line-height:1.6}
+.prim-line{font-size:.75rem;line-height:1.6}
+.prim-line .label{color:#6b7280}
+.prim-line .val{color:#9ca3af}
+.prim-note{font-size:.75rem;color:#9ca3af;line-height:1.6;border-left:2px solid rgba(255,255,255,.12);padding-left:.75rem}
+.prim-note .label{color:#6b7280}
+.detail-stats{display:flex;flex-wrap:wrap;gap:1rem 1.5rem}
+.detail-stat .label{font-size:.75rem;color:#6b7280;display:block;margin-bottom:.25rem}
+.detail-stat .val{font-size:.875rem;color:#fff}
+.qual{font-size:.7rem;color:#6b7280;display:block;margin-top:.15rem}
+.detail-section .label{font-size:.75rem;color:#6b7280;display:block;margin-bottom:.25rem}
+.tags{display:flex;flex-wrap:wrap;gap:.25rem}
+.tag{font-size:.75rem;padding:.125rem .5rem;border-radius:.25rem;background:rgba(255,255,255,.05);color:#d1d5db}
+.tag .approach{color:#6b7280}
+.tag-outline{font-size:.75rem;padding:.125rem .5rem;border-radius:.25rem;border:1px solid rgba(255,255,255,.1);color:#9ca3af}
+.v1-block{border-top:1px solid rgba(255,255,255,.06);padding-top:.75rem}
+.v1-block > *+*{margin-top:.75rem}
+.v1-head{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#4b5563}
+.mat-Theoretical{color:#6b7280}
+.mat-Experimental{color:#eab308}
+.mat-Emerging{color:#fb923c}
+.mat-Growing{color:#4ade80}
+.mat-Established{color:#34d399}
+
+/* Entry links used inside lenses */
+.ref{background:none;border:none;border-bottom:1px solid rgba(255,255,255,.2);color:#e5e7eb;cursor:pointer;font-size:inherit;padding:0;line-height:1.4;text-align:left}
+.ref:hover{border-bottom-color:#fff;color:#fff}
+.ref.is-Unlisted{color:#eab308;border-bottom:1px dashed rgba(234,179,8,.6)}
+.ref.is-Predicted{color:#f472b6;border-bottom:1px dashed rgba(244,114,182,.6)}
+
+.footer{text-align:center;padding:1rem 0;margin-bottom:1rem;font-size:.75rem;color:#4b5563}
+
+/* Lenses */
+.lenses{margin-top:3rem;border-top:1px solid rgba(255,255,255,.1);padding-top:2rem}
+.lens{margin-bottom:3rem}
+.lens h2{font-size:1.125rem;font-weight:700;margin-bottom:1rem}
+.lens h3{font-size:.8125rem;font-weight:600;margin:1.5rem 0 .5rem}
+.lens-intro{font-size:.875rem;color:#9ca3af;line-height:1.7;margin-bottom:1rem}
+.lens-intro strong{color:#e5e7eb;font-weight:500}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.25rem;font-size:.75rem;color:#6b7280;margin-top:.75rem}
+
+/* Tables */
+.t-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.t{width:100%;border-collapse:collapse;font-size:.75rem;min-width:40rem}
+.t th,.t td{border:1px solid rgba(255,255,255,.08);padding:.6rem .7rem;text-align:left;vertical-align:top;line-height:1.7}
+.t th{font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;color:#6b7280;font-weight:500;background:rgba(255,255,255,.02)}
+.t td{color:#d1d5db}
+.t .rowhead{font-weight:600;color:#fff;white-space:nowrap}
+.t .rowhead small{display:block;font-weight:400;color:#6b7280;white-space:normal;font-size:.7rem;line-height:1.5;margin-top:.15rem}
+.t .empty{color:#374151;text-align:center}
+.t .dim{color:#9ca3af}
+.t th.extra-col{color:#eab308}
+.cell-item{display:block}
+.yes{color:#4ade80}
+.no{color:#f87171}
+.expr{color:#fff;white-space:nowrap}
+
+/* Loop */
+.loop{display:grid;grid-template-columns:1fr;gap:.75rem}
+@media(min-width:768px){.loop{grid-template-columns:repeat(4,1fr)}}
+.loop-phase{border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.02);padding:.9rem;position:relative}
+.loop-phase:nth-child(1){border-left:3px solid #60a5fa}
+.loop-phase:nth-child(2){border-left:3px solid #c084fc}
+.loop-phase:nth-child(3){border-left:3px solid #fb923c}
+.loop-phase:nth-child(4){border-left:3px solid #4ade80}
+.loop-phase-title{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:#6b7280;margin-bottom:.6rem}
+.loop-stage{font-size:.8125rem;line-height:2}
+.loop-stage .n{color:#4b5563;display:inline-block;width:1.5rem}
+.loop-close{margin-top:.75rem;border:1px dashed rgba(255,255,255,.2);padding:.75rem .9rem;font-size:.8125rem;color:#9ca3af;line-height:1.7}
+
+/* Reliance tuple */
+.tuple{border-left:3px solid rgba(255,255,255,.3);padding:.5rem 0 .5rem 1rem;font-size:1rem;line-height:2.2;color:#d1d5db}
+.slot{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:.25rem;color:#fff;cursor:pointer;font-size:inherit;font-weight:600;padding:.05rem .45rem}
+.slot:hover{border-color:rgba(255,255,255,.5)}
+.slot.active{background:#fff;color:#0d1117;border-color:#fff}
+.slot-panel{margin-top:1rem;border:1px solid rgba(255,255,255,.1);padding:1rem;font-size:.8125rem}
+.slot-gloss{color:#9ca3af;line-height:1.6;margin-bottom:.75rem}
+.slot-list{display:flex;flex-wrap:wrap;gap:.4rem 1rem;line-height:1.6}
+.plain-list{list-style:none;font-size:.8125rem;color:#9ca3af;line-height:1.8}
+.plain-list li{padding-left:1rem;text-indent:-1rem}
+.plain-list li::before{content:'· ';color:#4b5563}
+</style>
+</head>
+<body>
+
+<div class="container" id="app"></div>
+
+<script src="../data.js"></script>
+<script src="grammar.js"></script>
+<script>
+// ---------------------------------------------------------------------------
+// Merge v1 data with the v2 classification
+// ---------------------------------------------------------------------------
+const LISTED=LAYERS.flatMap(lg=>lg.primitives.map(p=>{
+  const c=CLASSIFICATION[p.name];
+  if(!c)console.warn('v2: no classification for',p.name);
+  return {...(c||{kind:'Composite',basis:'Composite',ops:[],form:'unclassified',slots:[],reading:''}),name:p.name,status:'Listed',v1:p,v1Layer:lg.label.split(' ')[0],v1LayerName:lg.layer};
+}));
+const ENTRIES=LISTED.concat(EXTRA.map(e=>({...e,v1:null,v1Layer:'',v1LayerName:''})));
+const BY_NAME=Object.fromEntries(ENTRIES.map(e=>[e.name,e]));
+const TRACKED=new Set(LAYERS.flatMap(lg=>lg.primitives.flatMap(p=>p.instantiations.map(i=>i.name))));
+
+// composesWith names in v1 that point at no v1 entry
+function resolvesV1(name){
+  return LISTED.some(e=>e.name===name||e.name.split(' / ')[0]===name||e.name.split(' (')[0]===name);
+}
+const DANGLING=[...new Set(LISTED.flatMap(e=>e.v1.composesWith.filter(n=>!resolvesV1(n))))].sort();
+
+// ---------------------------------------------------------------------------
+// State
+// ---------------------------------------------------------------------------
+let filters={kinds:[],ops:[],bases:[],statuses:[]};
+let expanded={};
+let slot='V';
+
+function toggle(arr,item){const i=arr.indexOf(item);if(i>-1)arr.splice(i,1);else arr.push(item)}
+
+const app=document.getElementById('app');
+function esc(s){const d=document.createElement('div');d.textContent=s==null?'':s;return d.innerHTML.replace(/"/g,'&quot;')}
+
+function ref(name,label){
+  const e=BY_NAME[name];
+  if(!e)return esc(label||name);
+  return `<button class="ref is-${e.status}" data-ref="${esc(name)}">${esc(label||name)}</button>`;
+}
+
+const STATUSES=['Listed','Unlisted','Predicted'];
+const OP_IDS=OPERATORS.map(o=>o.id).concat(['Inverse']);
+
+// ---------------------------------------------------------------------------
+// Render
+// ---------------------------------------------------------------------------
+function render(){
+  const fk=filters.kinds,fo=filters.ops,fb=filters.bases,fs=filters.statuses;
+  const hasFilters=fk.length||fo.length||fb.length||fs.length;
+
+  const visible=ENTRIES.filter(e=>{
+    if(fk.length&&!fk.includes(e.kind)&&!fk.includes(e.also))return false;
+    if(fo.length&&!e.ops.some(o=>fo.includes(o)))return false;
+    if(fb.length&&!fb.includes(e.basis))return false;
+    if(fs.length&&!fs.includes(e.status))return false;
+    return true;
+  });
+
+  const count=f=>ENTRIES.filter(f).length;
+  const nListed=LISTED.length;
+  const nGenerators=LISTED.filter(e=>e.basis==='Generator').length;
+  const nUnlisted=count(e=>e.status==='Unlisted');
+  const nPredicted=count(e=>e.status==='Predicted');
+  const lastRevised=new Date(V2_META.lastRevised+'T00:00:00Z').toLocaleDateString('en-US',{month:'short',year:'numeric',timeZone:'UTC'});
+
+  function chip(group,label,arr,title){
+    return `<button class="chip${arr.includes(label)?' active':''}" data-group="${group}" data-filter="${esc(label)}"${title?` title="${esc(title)}"`:''}>${esc(label)}</button>`;
+  }
+
+  let html=`
+    <div class="intro">
+      <div class="intro-header">
+        <h1>Primitive Map</h1>
+        <span class="version">v2 · hypothesis</span>
+        <a class="head-link" href="../">v1 map</a>
+        <a href="https://github.com/indexnetwork/primitives" target="_blank" rel="noopener" class="github-link" title="GitHub">
+          <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        </a>
+      </div>
+      <p class="thesis">
+        v1 sorts ${nListed} primitives into ${LAYERS.length} layers by what they look like.
+        v2 asks what would make that list derivable.
+      </p>
+      <p>
+        The v1 map reads like a periodic table drawn before anyone knew about
+        atomic number. It has near-duplicates (attestation, endorsement and
+        vouch), entries it flags itself as mechanisms or implementations, and
+        concepts it leans on without listing (relevancy and trust).
+        <br><br>
+        v2 proposes a grammar that accounts for those: five kinds of thing,
+        five operators that generate most of the rest, one loop where v1 has
+        a stack, and one relation underneath all of it.
+        <br><br>
+        A compression like this rewards elegance over truth. Treat it as a
+        hypothesis. The test is at the bottom of the page.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-value">${nListed}</div><div class="stat-label">v1 Entries</div></div>
+      <div class="stat"><div class="stat-value">${nGenerators}</div><div class="stat-label">Generators</div></div>
+      <div class="stat"><div class="stat-value">${nUnlisted}</div><div class="stat-label">Unlisted</div></div>
+      <div class="stat"><div class="stat-value">${nPredicted}</div><div class="stat-label">Predicted</div></div>
+    </div>
+    <p class="notice">v2 reclassifies v1's entries and adds no figures. Unlisted entries are ones v1 already leans on; predicted entries are empty cells the grammar generates. Estimates shown inside an entry are v1's and remain speculative. Last revised ${esc(lastRevised)}.</p>
+
+    <div class="grammar">
+      <div class="gram-box">
+        <div class="gram-title">Five kinds of thing</div>
+        ${KINDS.filter(k=>k.id!=='Composite').map(k=>`<div class="gram-row"><span class="gram-name k-${k.id}">${esc(k.label)}</span><span class="gram-gloss">${esc(k.gloss)}</span><span class="gram-count">${count(e=>e.status==='Listed'&&(e.kind===k.id||e.also===k.id))}</span></div>`).join('')}
+        <div class="gram-row"><span class="gram-name k-Composite">Composites</span><span class="gram-gloss">${esc(KINDS.find(k=>k.id==='Composite').gloss)}</span><span class="gram-count">${count(e=>e.status==='Listed'&&e.kind==='Composite')}</span></div>
+      </div>
+      <div class="gram-box">
+        <div class="gram-title">Five operators</div>
+        ${OPERATORS.map(o=>`<div class="gram-row"><span class="gram-name">${esc(o.id)}</span><span class="gram-gloss">${esc(o.gloss)}</span><span class="gram-count">${count(e=>e.status==='Listed'&&e.ops.includes(o.id))}</span></div>`).join('')}
+        <div class="gram-row"><span class="gram-name" style="color:#6b7280">Counts</span><span class="gram-gloss">v1 entries of each kind, and v1 entries each operator helps derive</span></div>
+      </div>
+    </div>
+
+    <div class="filters">
+      <div class="filter-row"><span class="filter-label">Kind</span>${KINDS.map(k=>chip('kinds',k.id,fk,k.gloss)).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Operator</span>${OP_IDS.map(o=>chip('ops',o,fo,o==='Inverse'?'Not one of the five: the missing column':(OPERATORS.find(x=>x.id===o)||{}).gloss)).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Basis</span>${BASES.map(b=>chip('bases',b.id,fb,b.gloss)).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Status</span>${STATUSES.map(s=>chip('statuses',s,fs)).join('')}</div>
+      ${hasFilters?'<button class="clear-btn" id="clear-filters">Clear filters</button>':''}
+    </div>
+
+    <div class="col-header">
+      <span class="col-name">Entry</span>
+      <span class="col-form">Derivation</span>
+      <span class="col-layer" title="Layer in the v1 map">v1</span>
+      <span class="col-arrow"></span>
+    </div>`;
+
+  const groups=KINDS.map(k=>({k,items:visible.filter(e=>e.kind===k.id)})).filter(g=>g.items.length);
+  if(groups.length){
+    groups.forEach(g=>{
+      html+=`<div class="layer">
+        <div class="layer-header">
+          <span class="layer-title k-${g.k.id}">${esc(g.k.label)}</span>
+          <span class="layer-subtitle">${esc(g.k.gloss)}</span>
+          <span class="layer-count">${g.items.length} entr${g.items.length!==1?'ies':'y'}</span>
+        </div>`;
+      g.items.forEach(e=>{html+=rowHTML(e)});
+      html+=`</div>`;
+    });
+  }else{
+    html+=`<div style="text-align:center;padding:3rem 0;color:#6b7280;font-size:.875rem">No entries match the current filters.</div>`;
+  }
+
+  html+=`<div class="footer">Showing ${visible.length} of ${ENTRIES.length} entries (${nListed} from v1, ${nUnlisted} unlisted, ${nPredicted} predicted)</div>`;
+  html+=lensesHTML();
+  app.innerHTML=html;
+  bind();
+}
+
+function rowHTML(e){
+  const isOpen=expanded[e.name];
+  const p=e.v1;
+  const slots=e.slots.map(s=>SLOTS.find(x=>x.id===s)).filter(Boolean);
+  const loopIndex=LOOP.flatMap(ph=>ph.stages).indexOf(e.name);
+  const loopPhase=LOOP.find(ph=>ph.stages.includes(e.name));
+  const candidates=(e.candidates||[]).filter(n=>TRACKED.has(n));
+  let d=`<p class="prim-def">${esc(e.reading)}</p>
+    <div class="prim-line"><span class="label">Kind: </span><span class="val k-${e.kind}">${esc(e.kind)}</span>${e.force?`<span class="val"> (${esc(e.force)})</span>`:''}${e.also?`<span class="val">, also </span><span class="val k-${e.also}">${esc(e.also)}</span>`:''}
+      <span class="label"> · Basis: </span><span class="val">${esc(e.basis)}</span>
+      <span class="label"> · Derivation: </span><span class="val">${esc(e.form)}</span></div>
+    <div class="prim-line"><span class="label">Reliance slots: </span><span class="val">${slots.length?slots.map(s=>esc(s.phrase)).join(', '):'none. The tuple has no slot for failure or its repair.'}</span></div>`;
+  if(loopIndex>-1)d+=`<div class="prim-line"><span class="label">Loop: </span><span class="val">stage ${loopIndex+1} of ${LOOP.flatMap(ph=>ph.stages).length}, in the ${esc(loopPhase.phase.toLowerCase())} phase</span></div>`;
+  if(e.name===LOOP_GATE)d+=`<div class="prim-line"><span class="label">Loop: </span><span class="val">the gate where the loop closes and the next round starts</span></div>`;
+  if(e.seenIn)d+=`<p class="prim-note"><span class="label">Where v1 already relies on it: </span>${esc(e.seenIn)}</p>`;
+  if(e.status==='Predicted')d+=`<div class="detail-section"><span class="label">Tracked projects that may sit in this cell (unreviewed)</span><div class="tags">${candidates.length?candidates.map(n=>`<span class="tag">${esc(n)}</span>`).join(''):'<span class="tag-outline">none among v1\'s tracked projects</span>'}</div></div>`;
+  if(p){
+    d+=`<div class="v1-block">
+      <div class="v1-head">From v1 · ${esc(e.v1Layer)} ${esc(e.v1LayerName)}${p.kind?` · flagged as ${esc(p.kind.toLowerCase())}`:''}</div>
+      <div class="prim-line"><span class="label">Definition: </span><span class="val">${esc(p.definition)}</span></div>
+      <div class="prim-line"><span class="label">Legacy equivalent: </span><span class="val">${esc(p.legacyEquivalent)}</span></div>
+      ${p.overlapNote?`<p class="prim-note"><span class="label">Overlap: </span>${esc(p.overlapNote)}</p>`:''}
+      <div class="detail-stats">
+        <div class="detail-stat"><span class="label">Est. Formation Rate</span><span class="val">${esc(p.formationRate)}</span><span class="qual">speculative</span></div>
+        <div class="detail-stat"><span class="label">Market Size</span><span class="val">${esc(p.tamUnlocked)}</span><span class="qual">speculative</span></div>
+        <div class="detail-stat"><span class="label">Maturity</span><span class="val mat-${esc(p.maturity)}">${esc(p.maturity)}</span><span class="qual">speculative</span></div>
+        <div class="detail-stat"><span class="label">Pillars</span><span class="val">${p.pillars.map(esc).join(', ')}</span></div>
+      </div>
+      <div class="detail-section"><span class="label">Key Instantiations</span><div class="tags">${p.instantiations.map(i=>`<span class="tag">${esc(i.name)}${i.approach?`<span class="approach"> (${esc(i.approach)})</span>`:''}</span>`).join('')}</div></div>
+    </div>`;
+  }else{
+    d+=`<div class="prim-line"><span class="label">Tracking: </span><span class="val">not tracked. No estimates and no instantiations until it is added to the map.</span></div>`;
+  }
+  return `<div class="prim" id="entry-${esc(e.name.replace(/[^a-z0-9]+/gi,'-'))}">
+    <button class="prim-btn" data-prim="${esc(e.name)}">
+      <span class="prim-name">${esc(e.name)}${e.status!=='Listed'?`<span class="status-tag status-${e.status}">${esc(e.status.toLowerCase())}</span>`:''}${e.status==='Listed'&&e.basis==='Generator'?'<span class="basis-tag">generator</span>':''}</span>
+      <span class="prim-form">${esc(e.form)}</span>
+      <span class="prim-layer">${esc(e.v1Layer||'—')}</span>
+      <svg class="prim-arrow${isOpen?' open':''}" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+    </button>
+    <div class="prim-detail${isOpen?' open':''}"><div class="prim-detail-inner">${d}</div></div>
+  </div>`;
+}
+
+function lensesHTML(){
+  const legend=`<div class="legend"><span><span class="ref" style="cursor:default">in v1</span></span><span><span class="ref is-Unlisted" style="cursor:default">unlisted: v1 leans on it</span></span><span><span class="ref is-Predicted" style="cursor:default">predicted: empty cell</span></span></div>`;
+
+  // Operator grid
+  let grid=`<div class="t-wrap"><table class="t"><thead><tr><th>Base</th>${GRID_COLUMNS.map(c=>`<th${c==='Inverse'?' class="extra-col" title="Not one of the five operators"':''}>${esc(c)}${c==='Inverse'?' *':''}</th>`).join('')}</tr></thead><tbody>`;
+  GRID.forEach(r=>{
+    grid+=`<tr><td class="rowhead">${esc(r.base)}<small>${r.of.map(n=>ref(n)).join(', ')}</small></td>`;
+    GRID_COLUMNS.forEach(c=>{
+      const items=r.cells[c]||[];
+      grid+=items.length?`<td>${items.map(n=>`<span class="cell-item">${ref(n)}</span>`).join('')}</td>`:`<td class="empty">·</td>`;
+    });
+    grid+=`</tr>`;
+  });
+  grid+=`</tbody></table></div>`;
+
+  // Loop
+  let n=0;
+  const loop=`<div class="loop">${LOOP.map(ph=>`<div class="loop-phase"><div class="loop-phase-title">${esc(ph.phase)}</div>${ph.stages.map(s=>`<div class="loop-stage"><span class="n">${++n}</span>${ref(s)}</div>`).join('')}</div>`).join('')}</div>
+    <div class="loop-close">↺ ${ref('Trust')} gates the next match (${ref(LOOP_GATE)}), and the loop starts again. Actors sit at both ends: ${ref('Identity')} in v1's L1 and ${ref('Agent')} in L8 are the same kind of thing, which is where the stack closes into a loop.</div>`;
+
+  // Reliance tuple
+  const sb=id=>{const s=SLOTS.find(x=>x.id===id);return `<button class="slot${slot===id?' active':''}" data-slot="${id}">${esc(s.phrase)}</button>`};
+  const cur=SLOTS.find(s=>s.id===slot);
+  const fillers=ENTRIES.filter(e=>e.slots.includes(slot));
+  const slotless=ENTRIES.filter(e=>!e.slots.length);
+  const tuple=`<div class="tuple">${sb('A')} lets ${sb('B')} rely on A for ${sb('X')}, with ${sb('F')}, before ${sb('S')}, backed by ${sb('V')}, until ${sb('T')}.</div>
+    <div class="slot-panel">
+      <div class="slot-gloss"><strong style="color:#fff">${esc(cur.phrase)}</strong> · ${esc(cur.gloss)}</div>
+      <div class="slot-list">${fillers.map(e=>ref(e.name)).join('')}</div>
+    </div>
+    <p class="lens-intro" style="margin-top:1rem">
+      ${slotless.length} entries fill no slot: ${slotless.map(e=>ref(e.name)).join(', ')}. All of them concern reliance failing or being withdrawn. The tuple, like v1, describes the case where things go well.
+    </p>`;
+
+  // Scenarios
+  const yn=b=>b?'<span class="yes">fits</span>':'<span class="no">does not fit</span>';
+  const scen=`<div class="t-wrap"><table class="t"><thead><tr><th>v1 scenario</th><th>Role</th><th>Purpose</th><th>Fit to purpose<br>(relevancy)</th><th>Fit to role's norms<br>(appropriateness)</th><th>v1 cell</th></tr></thead><tbody>
+    ${SCENARIOS.map(s=>`<tr><td>${esc(s.scene)}</td><td class="dim">${esc(s.role)}</td><td class="dim">${esc(s.purpose)}</td><td>${yn(s.fitsPurpose)}</td><td>${yn(s.fitsRole)}</td><td class="dim">${esc(s.v1)}</td></tr>`).join('')}
+    </tbody></table></div>`;
+
+  const rel=`<div class="t-wrap"><table class="t"><thead><tr><th>v1 relationship</th><th>In the grammar</th><th>Reading</th></tr></thead><tbody>
+    ${RELATIONSHIPS.map(r=>`<tr><td class="rowhead">${esc(r.v1)}</td><td class="expr">${esc(r.expr)}</td><td class="dim">${esc(r.note)}</td></tr>`).join('')}
+    </tbody></table></div>`;
+
+  // Test
+  const predicted=ENTRIES.filter(e=>e.status==='Predicted');
+  const test=`<div class="t-wrap"><table class="t"><thead><tr><th>Predicted cell</th><th>Derivation</th><th>Projects v1 already tracks that may sit there</th></tr></thead><tbody>
+    ${predicted.map(e=>{const c=(e.candidates||[]).filter(x=>TRACKED.has(x));return `<tr><td class="rowhead">${ref(e.name)}</td><td class="expr">${esc(e.form)}</td><td class="dim">${c.length?c.map(esc).join(', '):'none'}</td></tr>`}).join('')}
+    </tbody></table></div>`;
+
+  return `<div class="lenses">
+    <div class="lens">
+      <h2>A few operators generate the rest</h2>
+      <p class="lens-intro">
+        Rows are base terms. Columns are operators. A cell holds the entry
+        you get by applying one to the other. Most of v1's L5, L6 and L7
+        fall out this way, and the "Value" pillar turns out to be one
+        column: Stake.
+      </p>
+      ${grid}
+      ${legend}
+      <p class="lens-intro" style="margin-top:1rem">
+        * Inverse is not one of the five operators. It is added here because
+        it is where the missing entries collect: every listed act and
+        position has an undoing, and v1 lists none of them. Empty cells are
+        ones this draft neither finds in v1 nor predicts. Entries outside the
+        grid are bases, parties, or stages of the loop below.
+      </p>
+    </div>
+
+    <div class="lens">
+      <h2>The stack is a loop</h2>
+      <p class="lens-intro">
+        Read across layers and not down them, v1 contains one cycle: request,
+        promise, perform, accept. v1's past, present and future model
+        (reputation, relevancy, trust) is a slice of it.
+      </p>
+      ${loop}
+    </div>
+
+    <div class="lens">
+      <h2>Reliance</h2>
+      <p class="lens-intro">
+        v1 defines trust as willingness to rely. That definition generalizes:
+        every entry is a partial filling of one sentence. Select a slot to
+        see what fills it.
+      </p>
+      ${tuple}
+      <p class="lens-intro">
+        The thesis says systems can organize around meaning. The map itself
+        is organized around who may count on whom for what.
+      </p>
+    </div>
+
+    <div class="lens">
+      <h2>v1's lenses, re-read</h2>
+      <h3>Relevancy × Appropriateness</h3>
+      <p class="lens-intro">
+        Each of v1's four scenarios runs on a ${ref('Role')} and a
+        ${ref('Purpose')}, and v1 lists neither. Relevancy is fit to the
+        purpose. Appropriateness is fit to the role's norms. "Coercive
+        relevance" is then a purpose-limitation violation: on purpose, but
+        taking more than the purpose needs.
+      </p>
+      ${scen}
+      <h3>Market relationships</h3>
+      <p class="lens-intro">
+        v1's table hides two different relations. Matching pairs
+        complements, which gives a market. Pooling gathers similars, which
+        gives a community.
+      </p>
+      ${rel}
+    </div>
+
+    <div class="lens">
+      <h2>Test and caveat</h2>
+      <p class="lens-intro">
+        A compression earns its keep by predicting empty cells. If the four
+        below turn out to be real project clusters, the grammar holds. The
+        last column only checks names against the projects v1 already
+        tracks. Nobody has reviewed whether they belong there.
+      </p>
+      ${test}
+      ${DANGLING.length?`<p class="lens-intro" style="margin-top:1rem">One piece of evidence comes from v1's own data. Its "composes with" fields point at ${DANGLING.length} name${DANGLING.length!==1?'s':''} that ${DANGLING.length!==1?'are':'is'} not on the map: <strong>${DANGLING.map(esc).join(', ')}</strong>. The map was already reaching for them.</p>`:''}
+      <h3>Reasons to doubt this</h3>
+      <ul class="plain-list">
+        <li>The space is not complete. The ${ENTRIES.filter(e=>e.status==='Unlisted').length} unlisted entries are the evidence, and time is implicit throughout without being named anywhere.</li>
+        <li>Three separate frameworks fit the list: speech acts (Searle), normative positions (Hohfeld, Brandom) and belief–desire–intention. When several fit, the list is probably a projection of something none of them fully is.</li>
+        <li>Match and Inverse both do work here without being among the five operators. The operator set is not settled.</li>
+        <li>Several classifications are judgment calls: Memory is both attitude and record, Delegation is both an entry and an operator, and the composites could be split further.</li>
+      </ul>
+      <p class="lens-intro" style="margin-top:1rem">The classification lives in <a href="https://github.com/indexnetwork/primitives/blob/main/v2/grammar.js" target="_blank" rel="noopener">v2/grammar.js</a>. Disagree there.</p>
+    </div>
+  </div>`;
+}
+
+// ---------------------------------------------------------------------------
+// Events
+// ---------------------------------------------------------------------------
+function focusEntry(name){
+  filters={kinds:[],ops:[],bases:[],statuses:[]};
+  expanded[name]=true;
+  render();
+  const el=document.getElementById('entry-'+name.replace(/[^a-z0-9]+/gi,'-'));
+  if(el)el.scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function bind(){
+  document.querySelectorAll('.chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{toggle(filters[btn.dataset.group],btn.dataset.filter);render()});
+  });
+  document.querySelectorAll('.prim-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{const k=btn.dataset.prim;expanded[k]=!expanded[k];render()});
+  });
+  document.querySelectorAll('.ref[data-ref]').forEach(btn=>{
+    btn.addEventListener('click',()=>focusEntry(btn.dataset.ref));
+  });
+  document.querySelectorAll('.slot').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const y=window.scrollY;slot=btn.dataset.slot;render();window.scrollTo(0,y);
+    });
+  });
+  const clearBtn=document.getElementById('clear-filters');
+  if(clearBtn)clearBtn.addEventListener('click',()=>{filters={kinds:[],ops:[],bases:[],statuses:[]};render()});
+}
+
+render();
+</script>
+</body>
+</html>
