@@ -25,7 +25,7 @@ Edit `data.js` to add, update, or reclassify primitives, or to add sources for e
 | `name` | Primitive name |
 | `pillars` | Language, Value, and/or Coordination |
 | `formationRate` | Estimated share of the relevant activity already running through programmable, machine-readable forms of the primitive. Speculative unless sourced. |
-| `tamUnlocked` | Market size: an estimate of the market tied to the primitive's legacy equivalent. Unverified unless sourced. Never summed across entries. |
+| `tamUnlocked` | Market size. Speculative: there is no methodology for it yet. Never summed across entries. |
 | `maturity` | Theoretical, Experimental, Emerging, Growing, or Established, as defined in `MATURITY` in `data.js`. Describes implementation in agent-mediated coordination, not whether the human behavior exists. |
 | `definition` | What the primitive represents |
 | `legacyEquivalent` | How the same coordination happens today without programmable primitives |
