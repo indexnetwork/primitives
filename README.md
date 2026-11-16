@@ -2,7 +2,7 @@
 
 Software historically organized human coordination around applications and interfaces. If language is the new API, coordination is no longer bounded by software, but by meaning.
 
-Personal agents, messaging apps, feeds, CRMs, and calendars are products shaped by historical software boundaries, not fundamental primitives. They force human behavior into predefined interfaces and workflows. Systems built on language can instead organize around what people mean, want, know, offer, and agree to.
+Personal agents, messaging apps, feeds, and CRMs are products shaped by historical software boundaries, not fundamental primitives. They force human behavior into predefined interfaces and workflows. Systems built on language can instead organize around what people mean, want, know, offer, and agree to.
 
 The underlying building blocks are coordination primitives: identity, context, intent, trust, negotiation, agreement, delegation, and the many ways humans exchange information and act together.
 
