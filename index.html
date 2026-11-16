@@ -32,12 +32,11 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 .intro p{font-size:.875rem;color:#9ca3af;line-height:1.8}
 
 /* Stats */
-.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2rem}
-.stats>.stat:last-child{grid-column:span 2}
-@media(min-width:640px){.stats{grid-template-columns:repeat(5,1fr)}.stats>.stat:last-child{grid-column:auto}}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1rem;margin-bottom:2rem}
 .stat{border:1px solid rgba(255,255,255,.1);border-radius:.5rem;padding:1rem;text-align:center}
 .stat-value{font-size:1.5rem;font-weight:700}
 .stat-label{font-size:.875rem;color:#9ca3af;margin-top:.25rem}
+@media(max-width:639px){.stats{gap:.5rem}.stat{padding:.75rem .25rem}.stat-label{font-size:.7rem}}
 
 /* Filters */
 .filters{margin-bottom:2rem}
@@ -225,7 +224,6 @@ function render(){
   const totalVisible=filtered.reduce((s,lg)=>s+lg.primitives.length,0);
   const totalAll=LAYERS.reduce((s,lg)=>s+lg.primitives.length,0);
   const projectsTracked=new Set(LAYERS.flatMap(lg=>lg.primitives.flatMap(p=>p.instantiations.map(i=>i.name)))).size;
-  const lastRevised=new Date(META.lastRevised+'T00:00:00Z').toLocaleDateString('en-US',{month:'short',year:'numeric',timeZone:'UTC'});
 
   const pillars=["Language","Value","Coordination"];
   const layerOpts=LAYERS.map(lg=>lg.layer);
@@ -272,10 +270,8 @@ function render(){
 
     <div class="stats">
       <div class="stat"><div class="stat-value">${totalAll}</div><div class="stat-label">Primitives</div></div>
-      <div class="stat"><div class="stat-value">${LAYERS.length}</div><div class="stat-label">Layers</div></div>
       <div class="stat"><div class="stat-value">${esc(META.coordinationTam)}</div><div class="stat-label">Coordination TAM</div></div>
       <div class="stat"><div class="stat-value">${projectsTracked}</div><div class="stat-label">Projects Tracked</div></div>
-      <div class="stat"><div class="stat-value">${esc(lastRevised)}</div><div class="stat-label">Last Revised</div></div>
     </div>
     <p class="notice">Formation rates, market sizes, maturity levels, and the coordination TAM are speculative. We don't have a methodology for them yet, so we don't know how accurate they are. Market sizes overlap; the total is not their sum.</p>
 
