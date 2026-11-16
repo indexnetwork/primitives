@@ -1,10 +1,10 @@
 # Primitives
 
-Software historically organized human coordination around applications and interfaces. Language-based systems make it possible to organize coordination around meaning itself.
+Software has organized human coordination around applications and interfaces. If language is the new API, coordination can be organized around meaning instead.
 
-Personal agents, messaging apps, feeds, CRMs, and calendars are products shaped by historical software boundaries, not fundamental primitives of human coordination. The underlying building blocks are coordination primitives: identity, context, intent, trust, negotiation, agreement, delegation, and the many ways humans exchange information and act together.
+Messaging apps, feeds, CRMs, calendars, and personal agents are products of software boundaries. Underneath them are coordination primitives: identity, intent, trust, negotiation, agreement, delegation, and the other ways people exchange information and act together.
 
-This map is an evolving attempt to identify, classify, and track those primitives. It groups them by speech act, meaning what saying something does: assertives, directives, commissives, expressives and declarations, plus speakers (who can act) and sequences (chains of acts). Each primitive also keeps one of 8 layers (Foundation, Context, Intent, Interaction, Trust, Value, Coordination, Agents), available as a filter. The map also lists gaps: acts the grouping predicts but no entry covers yet. Each entry records a definition, legacy equivalent, maturity, key instantiations, and composition relationships, along with an estimated formation rate and market size. Formation rates, market sizes, and maturity levels are speculative: we don't have a methodology for them yet.
+This map is an evolving attempt to identify, classify, and track them. It groups them by speech act, meaning what saying something does: assertives, directives, commissives, expressives and declarations, plus speakers (who can act) and sequences (chains of acts). Each primitive also keeps one of 8 layers (Foundation, Context, Intent, Interaction, Trust, Value, Coordination, Agents), available as a filter. The map also lists gaps: acts the grouping predicts but no entry covers yet. Each entry records a definition, legacy equivalent, maturity, key instantiations, and composition relationships, along with an estimated formation rate and market size. Formation rates, market sizes, and maturity levels are speculative: we don't have a methodology for them yet.
 
 **[View the map](https://indexnetwork.github.io/primitives/)**
 
