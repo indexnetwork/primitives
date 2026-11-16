@@ -4,7 +4,7 @@ Software historically organized human coordination around applications and inter
 
 Personal agents, messaging apps, feeds, CRMs, and calendars are products shaped by historical software boundaries, not fundamental primitives of human coordination. The underlying building blocks are coordination primitives: identity, context, intent, trust, negotiation, agreement, delegation, and the many ways humans exchange information and act together.
 
-This map is an evolving attempt to identify, classify, and track those primitives across 8 layers: Foundation, Context, Intent, Interaction, Trust, Value, Coordination, and Agents. Each entry records a definition, legacy equivalent, maturity, key instantiations, and composition relationships, along with an estimated formation rate and market size. Formation rates, market sizes, and maturity levels are speculative: we don't have a methodology for them yet.
+This map is an evolving attempt to identify, classify, and track those primitives. It groups them by speech act, meaning what saying something does: assertives, directives, commissives, expressives and declarations, plus speakers (who can act) and sequences (chains of acts). Each primitive also keeps one of 8 layers (Foundation, Context, Intent, Interaction, Trust, Value, Coordination, Agents), available as a filter. The map also lists gaps: acts the grouping predicts but no entry covers yet. Each entry records a definition, legacy equivalent, maturity, key instantiations, and composition relationships, along with an estimated formation rate and market size. Formation rates, market sizes, and maturity levels are speculative: we don't have a methodology for them yet.
 
 **[View the map](https://indexnetwork.github.io/primitives/)**
 
@@ -21,7 +21,7 @@ v2 adds no figures, sources, or instantiations. Renaming a primitive in `data.js
 
 ## Structure
 
-- `data.js`: primitive data (layers, primitives, maturity levels, map metadata)
+- `data.js`: primitive data (layers, primitives with their speech act, speech-act groups, gaps, maturity levels, map metadata)
 - `index.html`: rendering, filtering, interaction, lenses
 - `og.png`: link preview image
 

@@ -10,6 +10,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Identity",
+        act: "Speaker",
         pillars: ["Language", "Coordination"],
         formationRate: "~3%",
         tamUnlocked: "$30B+",
@@ -27,6 +28,7 @@ const LAYERS = [
       },
       {
         name: "Credential / Claim",
+        act: "Assertive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$15B+",
@@ -51,6 +53,7 @@ const LAYERS = [
       },
       {
         name: "Attestation",
+        act: "Assertive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$10B+",
@@ -69,6 +72,7 @@ const LAYERS = [
       },
       {
         name: "Consent",
+        act: "Declaration",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$5B+",
@@ -99,6 +103,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Memory",
+        act: "Assertive",
         pillars: ["Language"],
         formationRate: "~2%",
         tamUnlocked: "$80B+",
@@ -117,6 +122,7 @@ const LAYERS = [
       },
       {
         name: "Knowledge",
+        act: "Assertive",
         pillars: ["Language"],
         formationRate: "~5%",
         tamUnlocked: "$25B+",
@@ -134,6 +140,7 @@ const LAYERS = [
       },
       {
         name: "Preference",
+        act: "Expressive",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$40B+",
@@ -152,6 +159,7 @@ const LAYERS = [
       },
       {
         name: "Appropriateness",
+        act: "Declaration",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$15B+",
@@ -169,6 +177,7 @@ const LAYERS = [
       },
       {
         name: "Taste",
+        act: "Expressive",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$50B+",
@@ -188,6 +197,7 @@ const LAYERS = [
       },
       {
         name: "Skill",
+        act: "Assertive",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$20B+",
@@ -213,6 +223,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Intent",
+        act: "Directive",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$600B+",
@@ -236,6 +247,7 @@ const LAYERS = [
       },
       {
         name: "Opportunity",
+        act: "Sequence",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$500B+",
@@ -254,6 +266,7 @@ const LAYERS = [
       },
       {
         name: "Offer / Bid",
+        act: "Commissive",
         pillars: ["Value", "Language"],
         formationRate: "~3%",
         tamUnlocked: "$20B+",
@@ -276,6 +289,7 @@ const LAYERS = [
       },
       {
         name: "Priority",
+        act: "Expressive",
         pillars: ["Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$10B+",
@@ -299,6 +313,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Conversation",
+        act: "Sequence",
         pillars: ["Language", "Coordination"],
         formationRate: "~5%",
         tamUnlocked: "$50B+",
@@ -316,6 +331,7 @@ const LAYERS = [
       },
       {
         name: "Gossip",
+        act: "Assertive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$5B+",
@@ -334,6 +350,7 @@ const LAYERS = [
       },
       {
         name: "Transaction",
+        act: "Declaration",
         pillars: ["Value"],
         formationRate: "~2%",
         tamUnlocked: "$200B+",
@@ -356,6 +373,7 @@ const LAYERS = [
       },
       {
         name: "Decision",
+        act: "Declaration",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$8B+",
@@ -374,6 +392,7 @@ const LAYERS = [
       },
       {
         name: "Commitment",
+        act: "Commissive",
         pillars: ["Coordination"],
         formationRate: "~1%",
         tamUnlocked: "$50B+",
@@ -397,6 +416,7 @@ const LAYERS = [
       },
       {
         name: "Smart Contract",
+        act: "Commissive",
         pillars: ["Value", "Coordination"],
         formationRate: "~2%",
         tamUnlocked: "$1T+",
@@ -422,6 +442,7 @@ const LAYERS = [
       },
       {
         name: "Negotiation",
+        act: "Sequence",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$100B+",
@@ -446,6 +467,7 @@ const LAYERS = [
       },
       {
         name: "Agreement",
+        act: "Commissive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$50B+",
@@ -479,6 +501,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Reputation",
+        act: "Assertive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$50B+",
@@ -504,6 +527,7 @@ const LAYERS = [
       },
       {
         name: "Endorsement",
+        act: "Assertive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$5B+",
@@ -523,6 +547,7 @@ const LAYERS = [
       },
       {
         name: "Vouch",
+        act: "Assertive",
         pillars: ["Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$10B+",
@@ -540,6 +565,7 @@ const LAYERS = [
       },
       {
         name: "Perception",
+        act: "Assertive",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$20B+",
@@ -562,6 +588,7 @@ const LAYERS = [
       },
       {
         name: "Credibility",
+        act: "Assertive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$15B+",
@@ -587,6 +614,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Token",
+        act: "Declaration",
         pillars: ["Value"],
         formationRate: "~5%",
         tamUnlocked: "$400T+",
@@ -611,6 +639,7 @@ const LAYERS = [
       },
       {
         name: "Stream",
+        act: "Commissive",
         pillars: ["Value", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$30B+",
@@ -629,6 +658,7 @@ const LAYERS = [
       },
       {
         name: "Escrow",
+        act: "Commissive",
         pillars: ["Value", "Coordination"],
         formationRate: "~2%",
         tamUnlocked: "$15B+",
@@ -651,6 +681,7 @@ const LAYERS = [
       },
       {
         name: "DeFi (Liquidity)",
+        act: "Sequence",
         pillars: ["Value", "Coordination"],
         formationRate: "~1%",
         tamUnlocked: "$100B+",
@@ -676,6 +707,7 @@ const LAYERS = [
       },
       {
         name: "Risk",
+        act: "Assertive",
         pillars: ["Value", "Language"],
         formationRate: "<1%",
         tamUnlocked: "$100B+",
@@ -706,6 +738,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Vote",
+        act: "Declaration",
         pillars: ["Coordination"],
         formationRate: "~2%",
         tamUnlocked: "$5B+",
@@ -724,6 +757,7 @@ const LAYERS = [
       },
       {
         name: "Proposal",
+        act: "Directive",
         pillars: ["Language", "Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$3B+",
@@ -741,6 +775,7 @@ const LAYERS = [
       },
       {
         name: "Delegation",
+        act: "Declaration",
         pillars: ["Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$5B+",
@@ -759,6 +794,7 @@ const LAYERS = [
       },
       {
         name: "Arbitration",
+        act: "Declaration",
         pillars: ["Coordination"],
         formationRate: "<1%",
         tamUnlocked: "$20B+",
@@ -782,6 +818,7 @@ const LAYERS = [
       },
       {
         name: "Prediction Market",
+        act: "Sequence",
         pillars: ["Value", "Language"],
         formationRate: "~2%",
         tamUnlocked: "$30B+",
@@ -809,6 +846,7 @@ const LAYERS = [
     primitives: [
       {
         name: "Agent",
+        act: "Speaker",
         pillars: ["Language"],
         formationRate: "<1%",
         tamUnlocked: "$500B+",
@@ -828,6 +866,7 @@ const LAYERS = [
       },
       {
         name: "Task",
+        act: "Directive",
         pillars: ["Language", "Value"],
         formationRate: "<1%",
         tamUnlocked: "$100B+",
@@ -845,6 +884,7 @@ const LAYERS = [
       },
       {
         name: "Oracle",
+        act: "Assertive",
         pillars: ["Language", "Coordination"],
         formationRate: "~5%",
         tamUnlocked: "$10B+",
@@ -871,6 +911,7 @@ const LAYERS = [
       },
       {
         name: "Workflow",
+        act: "Sequence",
         pillars: ["Language", "Coordination"],
         formationRate: "~1%",
         tamUnlocked: "$15B+",
@@ -896,6 +937,32 @@ const LAYERS = [
       },
     ],
   },
+];
+
+// Speech acts: the primary grouping of the map. Each primitive's `act` names
+// the act that performs it or, for states and records, the act that creates it.
+// Layers above are kept as a secondary classification and filter.
+const ACTS = [
+  { id: "Assertive", label: "Assertives", gloss: "Say what is so", fails: "Can be false" },
+  { id: "Directive", label: "Directives", gloss: "Get someone to act", fails: "Can be refused" },
+  { id: "Commissive", label: "Commissives", gloss: "Bind yourself", fails: "Can be broken" },
+  { id: "Expressive", label: "Expressives", gloss: "Show where you stand", fails: "Can be insincere" },
+  { id: "Declaration", label: "Declarations", gloss: "Make it so by saying it", fails: "Can lack authority" },
+  { id: "Speaker", label: "Speakers", gloss: "Who can perform acts", fails: "Can be impersonated" },
+  { id: "Sequence", label: "Sequences", gloss: "Chains of acts", fails: null },
+];
+
+// Acts the grouping predicts but the map does not yet list.
+const GAPS = [
+  { name: "Retraction", act: "Assertive", gloss: "Withdraw or correct something you asserted" },
+  { name: "Question", act: "Directive", gloss: "Ask someone for information" },
+  { name: "Request", act: "Directive", gloss: "Ask a specific party to do something" },
+  { name: "Invitation", act: "Directive", gloss: "Ask someone to join or take part" },
+  { name: "Introduction", act: "Directive", gloss: "Ask two parties to meet, vouching for the fit" },
+  { name: "Thanks", act: "Expressive", gloss: "Acknowledge what someone did for you" },
+  { name: "Apology", act: "Expressive", gloss: "Own a failure and repair trust" },
+  { name: "Complaint", act: "Expressive", gloss: "Say that something fell short" },
+  { name: "Revocation", act: "Declaration", gloss: "Undo a consent, delegation or grant" },
 ];
 
 // Map-wide metadata. Counts are derived from LAYERS at render time.
