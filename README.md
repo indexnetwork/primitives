@@ -1,8 +1,10 @@
 # Primitives
 
-Software has organized human coordination around applications and interfaces. If language is the new API, coordination can be organized around meaning instead.
+Software historically organized human coordination around applications and interfaces. If language is the new API, coordination is no longer bounded by software, but by meaning.
 
-Messaging apps, feeds, CRMs, calendars, and personal agents are products of software boundaries. Underneath them are coordination primitives: identity, intent, trust, negotiation, agreement, delegation, and the other ways people exchange information and act together.
+Personal agents, messaging apps, feeds, CRMs, and calendars are products shaped by historical software boundaries, not fundamental primitives. They force human behavior into predefined interfaces and workflows. Systems built on language can instead organize around what people mean, want, know, offer, and agree to.
+
+The underlying building blocks are coordination primitives: identity, context, intent, trust, negotiation, agreement, delegation, and the many ways humans exchange information and act together.
 
 This map is an evolving attempt to identify, classify, and track them. It groups them by speech act, meaning what saying something does: assertives, directives, commissives, expressives and declarations, plus speakers (who can act) and sequences (chains of acts). Each primitive also keeps one of 8 layers (Foundation, Context, Intent, Interaction, Trust, Value, Coordination, Agents), available as a filter. The map also lists gaps: acts the grouping predicts but no entry covers yet. Each entry records a definition, legacy equivalent, maturity, key instantiations, and composition relationships, along with an estimated formation rate and market size. Formation rates, market sizes, and maturity levels are speculative: we don't have a methodology for them yet.
 
