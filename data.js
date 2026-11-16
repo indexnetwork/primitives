@@ -901,6 +901,7 @@ const LAYERS = [
 // Map-wide metadata. Counts are derived from LAYERS at render time.
 const META = {
   lastRevised: "2026-11-13",
+  coordinationTam: "$50T+",
 };
 
 const MATURITY_LEVELS = ["Theoretical", "Experimental", "Emerging", "Growing", "Established"];

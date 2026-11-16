@@ -33,7 +33,8 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 
 /* Stats */
 .stats{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-bottom:2rem}
-@media(min-width:640px){.stats{grid-template-columns:repeat(4,1fr)}}
+.stats>.stat:last-child{grid-column:span 2}
+@media(min-width:640px){.stats{grid-template-columns:repeat(5,1fr)}.stats>.stat:last-child{grid-column:auto}}
 .stat{border:1px solid rgba(255,255,255,.1);border-radius:.5rem;padding:1rem;text-align:center}
 .stat-value{font-size:1.5rem;font-weight:700}
 .stat-label{font-size:.875rem;color:#9ca3af;margin-top:.25rem}
@@ -272,10 +273,11 @@ function render(){
     <div class="stats">
       <div class="stat"><div class="stat-value">${totalAll}</div><div class="stat-label">Primitives</div></div>
       <div class="stat"><div class="stat-value">${LAYERS.length}</div><div class="stat-label">Layers</div></div>
+      <div class="stat"><div class="stat-value">${esc(META.coordinationTam)}</div><div class="stat-label">Coordination TAM</div></div>
       <div class="stat"><div class="stat-value">${projectsTracked}</div><div class="stat-label">Projects Tracked</div></div>
       <div class="stat"><div class="stat-value">${esc(lastRevised)}</div><div class="stat-label">Last Revised</div></div>
     </div>
-    <p class="notice">Formation rates, market sizes, and maturity levels are speculative. We don't have a methodology for them yet, so we don't know how accurate they are. Market sizes overlap and are never summed.</p>
+    <p class="notice">Formation rates, market sizes, maturity levels, and the coordination TAM are speculative. We don't have a methodology for them yet, so we don't know how accurate they are. Market sizes overlap; the total is not their sum.</p>
 
     <div class="filters">
       <div class="filter-row"><span class="filter-label">Pillar</span>${pillars.map(p=>chipHTML(p,fp)).join('')}</div>
