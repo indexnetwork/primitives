@@ -941,7 +941,7 @@ const LAYERS = [
 
 // Speech acts: the primary grouping of the map. Each primitive's `act` names
 // the act that performs it or, for states and records, the act that creates it.
-// Layers above are kept as a secondary classification and filter.
+// Layers above are kept as a secondary classification.
 const ACTS = [
   { id: "Assertive", label: "Assertives", gloss: "Say what is so", fails: "Can be false" },
   { id: "Directive", label: "Directives", gloss: "Get someone to act", fails: "Can be refused" },
