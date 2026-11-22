@@ -41,7 +41,7 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 /* Filters */
 .filters{margin-bottom:2rem}
 .filter-row{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-bottom:.75rem}
-.filter-label{font-size:.75rem;color:#6b7280;width:4rem;flex-shrink:0}
+.filter-label{font-size:.75rem;color:#6b7280;width:5rem;flex-shrink:0}
 .chip{padding:.25rem .75rem;font-size:.75rem;border-radius:9999px;border:1px solid rgba(255,255,255,.1);background:transparent;color:#6b7280;cursor:pointer;transition:all .15s}
 .chip:hover{color:#d1d5db;border-color:rgba(255,255,255,.2)}
 .chip.active{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.1);color:#fff}
@@ -198,7 +198,8 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 // ---------------------------------------------------------------------------
 // State
 // ---------------------------------------------------------------------------
-let filters={layers:[],maturities:[]};
+const EMPTY_FILTERS=()=>({acts:[],maturities:[],status:[]});
+let filters=EMPTY_FILTERS();
 let expanded={};
 
 function toggle(arr,item){
@@ -215,28 +216,32 @@ const app=$('app');
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 function render(){
-  const fl=filters.layers,fm=filters.maturities;
-  const hasFilters=fl.length||fm.length;
+  const fa=filters.acts,fm=filters.maturities,fs=filters.status;
+  const hasFilters=fa.length||fm.length||fs.length;
+  // Gaps have no maturity, so a maturity filter hides them unless "Gap" is picked.
+  const showPrims=!fs.length||fs.includes('Mapped');
+  const showGaps=fs.length?fs.includes('Gap'):!fm.length;
 
   const all=LAYERS.flatMap(lg=>lg.primitives.map(p=>({...p,layer:lg.layer,layerLabel:lg.label})));
   const matches=all.filter(p=>{
-    if(fl.length&&!fl.includes(p.layer))return false;
+    if(!showPrims)return false;
+    if(fa.length&&!fa.includes(p.act))return false;
     if(fm.length&&!fm.includes(p.maturity))return false;
     return true;
   });
-  const filtered=ACTS.map(a=>({...a,primitives:matches.filter(p=>p.act===a.id),gaps:hasFilters?[]:GAPS.filter(g=>g.act===a.id)}))
+  const gapMatches=showGaps?GAPS.filter(g=>!fa.length||fa.includes(g.act)):[];
+  const filtered=ACTS.map(a=>({...a,primitives:matches.filter(p=>p.act===a.id),gaps:gapMatches.filter(g=>g.act===a.id)}))
     .filter(g=>g.primitives.length||g.gaps.length);
 
   const totalVisible=filtered.reduce((s,lg)=>s+lg.primitives.length,0);
   const totalAll=LAYERS.reduce((s,lg)=>s+lg.primitives.length,0);
   const projectsTracked=new Set(LAYERS.flatMap(lg=>lg.primitives.flatMap(p=>p.instantiations.map(i=>i.name)))).size;
 
-  const layerOpts=LAYERS.map(lg=>lg.layer);
-  const matOpts=MATURITY_LEVELS;
+  const statusOpts=[{id:'Mapped',title:'Primitives the map lists'},{id:'Gap',title:'Acts the grouping predicts that the map does not list yet'}];
 
-  function chipHTML(label,arr,title){
-    const active=arr.includes(label);
-    return `<button class="chip${active?' active':''}" data-filter="${label}"${title?` title="${esc(title)}"`:''}>${esc(label)}</button>`;
+  function chipHTML(group,value,label,title){
+    const active=filters[group].includes(value);
+    return `<button class="chip${active?' active':''}" data-group="${group}" data-filter="${esc(value)}"${title?` title="${esc(title)}"`:''}>${esc(label)}</button>`;
   }
 
   let html=`
@@ -279,8 +284,9 @@ function render(){
     <p class="notice">Formation rates, market sizes, maturity levels, and the coordination TAM are speculative. We don't have a methodology for them yet, so we don't know how accurate they are. Market sizes overlap; the total is not their sum.</p>
 
     <div class="filters">
-      <div class="filter-row"><span class="filter-label">Layer</span>${layerOpts.map(l=>chipHTML(l,fl)).join('')}</div>
-      <div class="filter-row"><span class="filter-label">Maturity</span>${matOpts.map(m=>chipHTML(m,fm)).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Speech act</span>${ACTS.map(a=>chipHTML('acts',a.id,a.label,a.gloss)).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Maturity</span>${MATURITY_LEVELS.map(m=>chipHTML('maturities',m,m)).join('')}</div>
+      <div class="filter-row"><span class="filter-label">Status</span>${statusOpts.map(o=>chipHTML('status',o.id,o.id,o.title)).join('')}</div>
       ${hasFilters?'<button class="clear-btn" id="clear-filters">Clear filters</button>':''}
     </div>
 
@@ -344,10 +350,10 @@ function render(){
       html+=`</div>`;
     });
   }else{
-    html+=`<div style="text-align:center;padding:3rem 0;color:#6b7280;font-size:.875rem">No primitives match the current filters.</div>`;
+    html+=`<div style="text-align:center;padding:3rem 0;color:#6b7280;font-size:.875rem">Nothing matches the current filters.</div>`;
   }
 
-  html+=`<div class="footer">Showing ${totalVisible} of ${totalAll} primitives${hasFilters?'':` and ${GAPS.length} gaps`}</div>
+  html+=`<div class="footer">Showing ${totalVisible} of ${totalAll} primitives and ${gapMatches.length} of ${GAPS.length} gaps</div>
 
   <div class="lenses">
     <div class="lens">
@@ -471,9 +477,7 @@ function render(){
   // Bind events
   document.querySelectorAll('.chip').forEach(btn=>{
     btn.addEventListener('click',()=>{
-      const v=btn.dataset.filter;
-      if(layerOpts.includes(v))toggle(fl,v);
-      else toggle(fm,v);
+      toggle(filters[btn.dataset.group],btn.dataset.filter);
       render();
     });
   });
@@ -488,7 +492,7 @@ function render(){
 
   const clearBtn=document.getElementById('clear-filters');
   if(clearBtn)clearBtn.addEventListener('click',()=>{
-    filters={layers:[],maturities:[]};
+    filters=EMPTY_FILTERS();
     render();
   });
 }
