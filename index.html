@@ -198,7 +198,7 @@ body{font-family:'Source Code Pro',monospace;background:#0d1117;color:#fff;min-h
 // ---------------------------------------------------------------------------
 // State
 // ---------------------------------------------------------------------------
-let filters={pillars:[],layers:[],maturities:[]};
+let filters={layers:[],maturities:[]};
 let expanded={};
 
 function toggle(arr,item){
@@ -215,12 +215,11 @@ const app=$('app');
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
 
 function render(){
-  const fp=filters.pillars,fl=filters.layers,fm=filters.maturities;
-  const hasFilters=fp.length||fl.length||fm.length;
+  const fl=filters.layers,fm=filters.maturities;
+  const hasFilters=fl.length||fm.length;
 
   const all=LAYERS.flatMap(lg=>lg.primitives.map(p=>({...p,layer:lg.layer,layerLabel:lg.label})));
   const matches=all.filter(p=>{
-    if(fp.length&&!p.pillars.some(x=>fp.includes(x)))return false;
     if(fl.length&&!fl.includes(p.layer))return false;
     if(fm.length&&!fm.includes(p.maturity))return false;
     return true;
@@ -232,7 +231,6 @@ function render(){
   const totalAll=LAYERS.reduce((s,lg)=>s+lg.primitives.length,0);
   const projectsTracked=new Set(LAYERS.flatMap(lg=>lg.primitives.flatMap(p=>p.instantiations.map(i=>i.name)))).size;
 
-  const pillars=["Language","Value","Coordination"];
   const layerOpts=LAYERS.map(lg=>lg.layer);
   const matOpts=MATURITY_LEVELS;
 
@@ -281,7 +279,6 @@ function render(){
     <p class="notice">Formation rates, market sizes, maturity levels, and the coordination TAM are speculative. We don't have a methodology for them yet, so we don't know how accurate they are. Market sizes overlap; the total is not their sum.</p>
 
     <div class="filters">
-      <div class="filter-row"><span class="filter-label">Pillar</span>${pillars.map(p=>chipHTML(p,fp)).join('')}</div>
       <div class="filter-row"><span class="filter-label">Layer</span>${layerOpts.map(l=>chipHTML(l,fl)).join('')}</div>
       <div class="filter-row"><span class="filter-label">Maturity</span>${matOpts.map(m=>chipHTML(m,fm)).join('')}</div>
       ${hasFilters?'<button class="clear-btn" id="clear-filters">Clear filters</button>':''}
@@ -475,8 +472,7 @@ function render(){
   document.querySelectorAll('.chip').forEach(btn=>{
     btn.addEventListener('click',()=>{
       const v=btn.dataset.filter;
-      if(pillars.includes(v))toggle(fp,v);
-      else if(layerOpts.includes(v))toggle(fl,v);
+      if(layerOpts.includes(v))toggle(fl,v);
       else toggle(fm,v);
       render();
     });
@@ -492,7 +488,7 @@ function render(){
 
   const clearBtn=document.getElementById('clear-filters');
   if(clearBtn)clearBtn.addEventListener('click',()=>{
-    filters={pillars:[],layers:[],maturities:[]};
+    filters={layers:[],maturities:[]};
     render();
   });
 }
